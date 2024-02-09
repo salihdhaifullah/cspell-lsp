@@ -1,60 +1,103 @@
 package main
 
 import (
-	"fmt"
 	"log"
+	"net/http"
 	"os"
 
-	"github.com/evanw/esbuild/pkg/api"
-	"rogchap.com/v8go"
+	"github.com/quickjs-go/quickjs-go"
+	"github.com/salihdhaifullah/go-react-ssr/builder"
 )
 
-// //go:embed all:viteApp/dist/client
-// var frontendDist embed.FS
-
-// //go:embed all:viteApp/dist/server
-// var serverDist embed.FS
+//
+// TODO: in dev mode use nodejs and vite for better DX
 
 func main() {
-	// fsysFrontend, err := fs.Sub(frontendDist, "viteApp/dist/client")
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-	// fsysServer, err := fs.Sub(serverDist, "viteApp/dist/server")
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-	// renderer.RunBlocking(renderer.FrontendBuild{
-	// 	FrontendDist: fsysFrontend,
-	// 	ServerDist:   fsysServer,
-	// })
+	builder.Build()
+	renderer := NewRenderer()
 
+	// http.Handle("/static", http.FileServer(http.Dir("./build/client")))
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path != "/" {
+			w.WriteHeader(http.StatusNotFound)
+			return
+		}
+		log.Println("handel client runs ok")
+		strx := renderer.RenderHtml()
 
-	script := "export function add(a, b) { return a + b };"
+		byteToW := []byte(strx.String())
+		_, err := w.Write(byteToW)
+		if err != nil {
+			log.Fatal(err)
+		}
 
-	result := api.Transform(script, api.TransformOptions{
-		Loader:     api.LoaderJS,
-		Format:     api.FormatIIFE,
-		GlobalName: "global",
+		strx.Free()
 	})
 
-	os.Stdout.Write(result.Code)
-
-	fmt.Printf("%d errors and %d warnings\n",
-		len(result.Errors), len(result.Warnings))
-
-	ctx := v8go.NewContext()
-	ctx.RunScript(string(result.Code), "math.mjs")
-
-	global, err := ctx.Global().Get("global")
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	globalObj, err := global.AsObject()
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	fmt.Println(globalObj.Get("add"))
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
+
+
+
+type Renderer struct {
+	runtime quickjs.Runtime
+	ctx *quickjs.Context
+	global quickjs.Value
+
+}
+
+func NewRenderer() *Renderer {
+	runtime := quickjs.NewRuntime()
+	// runtime.StdFreeHandlers()
+	ctx := runtime.NewContext()
+	ctx.InitOsModule()
+	ctx.InitStdModule()
+
+	b, err := os.ReadFile("./build/server/script.js")
+	if err != nil {
+		log.Println("3")
+		log.Fatal(err)
+	}
+
+	_, err = ctx.Eval(string(b), quickjs.EVAL_GLOBAL)
+	if err != nil {
+		log.Println("3")
+		log.Fatal(err)
+	}
+
+	global := ctx.Globals()
+
+	return &Renderer{
+		global: global,
+		runtime: runtime,
+		ctx: ctx,
+	}
+}
+
+func (this Renderer) RenderHtml() quickjs.Value {
+	// names, err := this.global.PropertyNames()
+	// if err != nil {
+		// log.Println("3")
+		// log.Fatal(err)
+	// }
+	// log.Println(names)
+	Redr := this.global.Get("RenderHtml")
+	Res2 := this.ctx.JsFunction(this.global, Redr, []quickjs.Value{this.ctx.String("/")})
+	err2 := this.global.Error()
+	err3 := this.ctx.Exception()
+	val := Res2.String()
+	log.Println(val)
+	log.Println(err2)
+	log.Println(err3)
+	// var html string = Res2.String()
+	// go Res2.Free()
+	// go res.Free()
+	return Res2
+}
+
+func (this Renderer) Free() {
+	this.global.Free()
+	this.ctx.Free()
+	this.runtime.Free()
+}
+

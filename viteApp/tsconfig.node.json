@@ -6,6 +6,5 @@
     "moduleResolution": "Bundler",
     "allowSyntheticDefaultImports": true,
     "jsx": "preserve"
-  },
-  "include": ["vite.config.ts"]
+  }
 }
