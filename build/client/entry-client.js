@@ -25510,23 +25510,18 @@ var require_jsx_runtime = __commonJS({
 });
 
 // viteApp/src/entry-client.tsx
-var import_react3 = __toESM(require_react(), 1);
+var import_react2 = __toESM(require_react(), 1);
 var import_client = __toESM(require_client(), 1);
 
 // viteApp/src/App.tsx
 var import_react = __toESM(require_react(), 1);
-
-// viteApp/src/assets/react.svg
-var react_default = "./react.svg";
-
-// viteApp/src/App.tsx
 var import_jsx_runtime = __toESM(require_jsx_runtime(), 1);
 function App() {
   const [count, setCount] = (0, import_react.useState)(0);
   return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
     /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", { href: "https://vitejs.dev", target: "_blank", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", { src: "/vite.svg", className: "logo", alt: "Vite logo" }) }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", { href: "https://reactjs.org", target: "_blank", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", { src: react_default, className: "logo react", alt: "React logo" }) })
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", { href: "https://vitejs.dev", target: "_blank", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", { src: "/public/vite.svg", className: "logo", alt: "Vite logo" }) }),
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", { href: "https://reactjs.org", target: "_blank", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", { src: "/public/react.svg", className: "logo react", alt: "React logo" }) })
     ] }),
     /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", { children: "Vite + React" }),
     /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "card", children: [
@@ -25550,7 +25545,7 @@ var App_default = App;
 var import_jsx_runtime2 = __toESM(require_jsx_runtime(), 1);
 import_client.default.hydrateRoot(
   document.getElementById("root"),
-  /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_react3.default.StrictMode, { children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(App_default, {}) })
+  /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_react2.default.StrictMode, { children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(App_default, {}) })
 );
 /*! Bundled license information:
 

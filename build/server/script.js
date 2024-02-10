@@ -13150,13 +13150,6 @@ var require_server_browser = __commonJS({
   }
 });
 
-// viteApp/src/assets/react.svg
-var require_react2 = __commonJS({
-  "viteApp/src/assets/react.svg"() {
-    "use strict";
-  }
-});
-
 // viteApp/node_modules/react/cjs/react-jsx-runtime.development.js
 var require_react_jsx_runtime_development = __commonJS({
   "viteApp/node_modules/react/cjs/react-jsx-runtime.development.js"(exports) {
@@ -14088,19 +14081,18 @@ var require_jsx_runtime = __commonJS({
 });
 
 // viteApp/src/entry-server.tsx
-var import_react3 = __toESM(require_react(), 1);
+var import_react2 = __toESM(require_react(), 1);
 var import_server = __toESM(require_server_browser(), 1);
 
 // viteApp/src/App.tsx
 var import_react = __toESM(require_react(), 1);
-var import_react2 = __toESM(require_react2(), 1);
 var import_jsx_runtime = __toESM(require_jsx_runtime(), 1);
 function App() {
   const [count, setCount] = (0, import_react.useState)(0);
   return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
     /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", { href: "https://vitejs.dev", target: "_blank", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", { src: "/vite.svg", className: "logo", alt: "Vite logo" }) }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", { href: "https://reactjs.org", target: "_blank", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", { src: import_react2.default, className: "logo react", alt: "React logo" }) })
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", { href: "https://vitejs.dev", target: "_blank", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", { src: "/public/vite.svg", className: "logo", alt: "Vite logo" }) }),
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", { href: "https://reactjs.org", target: "_blank", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", { src: "/public/react.svg", className: "logo react", alt: "React logo" }) })
     ] }),
     /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", { children: "Vite + React" }),
     /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "card", children: [
@@ -14124,7 +14116,7 @@ var App_default = App;
 var import_jsx_runtime2 = __toESM(require_jsx_runtime(), 1);
 function render(url) {
   const html = import_server.default.renderToString(
-    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_react3.default.StrictMode, { children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(App_default, {}) })
+    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_react2.default.StrictMode, { children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(App_default, {}) })
   );
   return { html, head: "" };
 }
@@ -14138,12 +14130,13 @@ var template = `
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/public/entry-client.css" />
     <title>Vite + React + TS</title>
     <!--app-head-->
   </head>
   <body>
     <div id="root"><!--app-html--></div>
-    <script type="module" src="/src/entry-client.tsx"><\/script>
+    <script type="module" src="/public/entry-client.js"><\/script>
   </body>
 </html>
 `;

@@ -7,12 +7,13 @@ let template = `
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/public/entry-client.css" />
     <title>Vite + React + TS</title>
     <!--app-head-->
   </head>
   <body>
     <div id="root"><!--app-html--></div>
-    <script type="module" src="/src/entry-client.tsx"></script>
+    <script type="module" src="/public/entry-client.js"></script>
   </body>
 </html>
 `

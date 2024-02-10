@@ -2,14 +2,80 @@ package builder
 
 import (
 	"fmt"
+	"io"
 	"log"
+	"os"
+	"path/filepath"
 	"sync"
 
 	"github.com/evanw/esbuild/pkg/api"
 )
 
+func copyDir(sourceDir, destDir string) error {
+    // Open the source directory
+    source, err := os.Open(sourceDir)
+    if err != nil {
+        return err
+    }
+    defer source.Close()
+
+    // Create the destination directory if it doesn't exist
+    if err := os.MkdirAll(destDir, 0755); err != nil {
+        return err
+    }
+
+    // Read the contents of the source directory
+    entries, err := source.Readdir(-1)
+    if err != nil {
+        return err
+    }
+
+    // Iterate over the entries in the source directory
+    for _, entry := range entries {
+        sourcePath := filepath.Join(sourceDir, entry.Name())
+        destPath := filepath.Join(destDir, entry.Name())
+
+        // If it's a directory, recursively call copyDir
+        if entry.IsDir() {
+            if err := copyDir(sourcePath, destPath); err != nil {
+                return err
+            }
+        } else {
+            // If it's a file, copy it to the destination directory
+            if err := copyFile(sourcePath, destPath); err != nil {
+                return err
+            }
+        }
+    }
+
+    return nil
+}
+
+func copyFile(sourceFile, destFile string) error {
+    source, err := os.Open(sourceFile)
+    if err != nil {
+        return err
+    }
+    defer source.Close()
+
+    destination, err := os.Create(destFile)
+    if err != nil {
+        return err
+    }
+    defer destination.Close()
+
+    // Copy the contents of the file
+    if _, err := io.Copy(destination, source); err != nil {
+        return err
+    }
+
+    return nil
+}
+
 
 func BuildClient() {
+	go copyDir("./viteApp/public", "./build/client")
+
 	result := api.Build(api.BuildOptions{
 		Platform: api.PlatformBrowser,
 		Bundle:   true,
@@ -63,7 +129,7 @@ func BuildServer() {
 		Platform: api.PlatformBrowser,
 		Bundle:   true,
 		Loader: map[string]api.Loader{
-			".svg":  api.LoaderEmpty,
+			".svg":  api.LoaderBinary,
 			".json": api.LoaderFile,
 			".css": api.LoaderEmpty,
 		},
