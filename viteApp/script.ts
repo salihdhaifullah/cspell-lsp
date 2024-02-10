@@ -14,6 +14,12 @@ let template = `
   <body>
     <div id="root"><!--app-html--></div>
     <script type="module" src="/public/entry-client.js"></script>
+    <script>
+        const events = new EventSource("/events")
+        events.addEventListener("reload", e => {
+          window.location.reload()
+        })
+    </script>
   </body>
 </html>
 `

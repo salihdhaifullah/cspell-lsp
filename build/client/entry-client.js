@@ -25520,10 +25520,10 @@ function App() {
   const [count, setCount] = (0, import_react.useState)(0);
   return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
     /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", { href: "https://vitejs.dev", target: "_blank", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", { src: "/public/vite.svg", className: "logo", alt: "Vite logo" }) }),
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", { href: "https://vitejs.dev", target: "_blank", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", { src: "/public/go.svg", className: "logo golang", alt: "Golang logo" }) }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", { href: "https://reactjs.org", target: "_blank", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", { src: "/public/react.svg", className: "logo react", alt: "React logo" }) })
     ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", { children: "Vite + React" }),
+    /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", { children: "Golang + React" }),
     /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "card", children: [
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", { onClick: () => setCount((count2) => count2 + 1), children: [
         "count is ",
@@ -25535,7 +25535,7 @@ function App() {
         " and save to test HMR"
       ] })
     ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { className: "read-the-docs", children: "Click on the Vite and React logos to learn more" })
+    /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { className: "read-the-docs", children: "Click on the Golang and React logos to learn more" })
   ] });
 }
 __name(App, "App");

@@ -1,7 +1,6 @@
 package builder
 
 import (
-	"fmt"
 	"io"
 	"log"
 	"os"
@@ -73,11 +72,22 @@ func copyFile(sourceFile, destFile string) error {
 }
 
 
-func BuildClient() {
+func BuildClient(events chan struct{}) {
 	go copyDir("./viteApp/public", "./build/client")
 
-	result := api.Build(api.BuildOptions{
+	context, err := api.Context(api.BuildOptions{
 		Platform: api.PlatformBrowser,
+		Plugins: []api.Plugin{
+			api.Plugin{
+				Name: "reload",
+				Setup: func(pb api.PluginBuild) {
+					pb.OnEnd(func(result *api.BuildResult) (api.OnEndResult, error) {
+						events <- struct{}{}
+						return api.OnEndResult{}, nil
+					})
+				},
+			},
+		},
 		Bundle:   true,
 		Loader: map[string]api.Loader{
 			".svg":  api.LoaderFile,
@@ -90,6 +100,7 @@ func BuildClient() {
 		KeepNames: true,
 		AssetNames: "[name]",
 		ChunkNames: "[name]",
+
 		Banner: map[string]string{
 			"js": `
 				function TextEncoder() {
@@ -115,17 +126,22 @@ func BuildClient() {
 		},
 	})
 
-	if len(result.Errors) != 0 {
-		log.Fatal(result.Errors[0])
+	if err != nil {
+		log.Fatal(err)
 	}
 
-	fmt.Printf("%d errors and %d warnings\n", len(result.Errors), len(result.Warnings))
+	err2 := context.Watch(api.WatchOptions{})
+
+	if err2 != nil {
+		log.Fatal(err2)
+	}
+	// fmt.Printf("%d errors and %d warnings\n", len(result.Errors), len(result.Warnings))
 	wg.Done()
 }
 
 
-func BuildServer() {
-	result := api.Build(api.BuildOptions{
+func BuildServer(events chan struct{}) {
+	context, err := api.Context(api.BuildOptions{
 		Platform: api.PlatformBrowser,
 		Bundle:   true,
 		Loader: map[string]api.Loader{
@@ -165,19 +181,24 @@ func BuildServer() {
 		},
 	})
 
-	if len(result.Errors) != 0 {
-		log.Fatal(result.Errors[0])
+	if err != nil {
+		log.Fatal(err)
 	}
 
-	fmt.Printf("%d errors and %d warnings\n", len(result.Errors), len(result.Warnings))
+	err2 := context.Watch(api.WatchOptions{})
+
+	if err2 != nil {
+		log.Fatal(err2)
+	}
+	// fmt.Printf("%d errors and %d warnings\n", len(result.Errors), len(result.Warnings))
 	wg.Done()
 }
 
 var wg = sync.WaitGroup{}
 
-func Build() {
+func Build(events chan struct{}) {
 	wg.Add(2)
-	go BuildClient()
-	go BuildServer()
+	go BuildClient(events)
+	go BuildServer(events)
 	wg.Wait()
 }

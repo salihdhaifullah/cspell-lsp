@@ -9,11 +9,10 @@ import (
 	v8 "rogchap.com/v8go"
 )
 
-//
-// TODO: in dev mode use nodejs and vite for better DX
-
 func main() {
-	builder.Build()
+	events := HandelHotReload()
+
+	builder.Build(events)
 
 	http.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir("./build/client"))))
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
