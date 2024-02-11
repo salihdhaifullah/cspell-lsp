@@ -1,9 +1,18 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
+import { Props } from '.'
 
-function App() {
+interface Person {
+  name: string
+  age: number
+}
+
+function App(props: Props<Person>) {
+  useEffect(() => {
+    console.log(props)
+  }, [])
+
   const [count, setCount] = useState(0)
-
   return (
     <>
       <div>
@@ -22,6 +31,9 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
+        <h1>person name is {props.data.name}</h1>
+        <h1>person age is {props.data.age}</h1>
+        <h1>is ok {String(props.ok)}</h1>
       </div>
       <p className="read-the-docs">
         Click on the Golang and React logos to learn more

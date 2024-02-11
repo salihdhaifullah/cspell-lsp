@@ -1,73 +1,121 @@
 package main
 
 import (
+	"encoding/json"
 	"log"
 	"net/http"
 	"os"
+	"sync"
 
 	"github.com/salihdhaifullah/go-react-ssr/builder"
 	v8 "rogchap.com/v8go"
 )
 
-func main() {
-	events := HandelHotReload()
 
+type Person struct {
+	Name string `json:"name"`
+	Age int `json:"age"`
+}
+
+func Loader(url string) Props {
+	switch url {
+	case "/":
+		return Props{Ok: true,
+		Data: Person{
+			Name: "Salih Dhaifullah",
+			Age: 19,
+		},}
+	default:
+		return Props{Ok: true}
+	}
+}
+
+type Props struct {
+	Ok bool `json:"ok"`
+	Data interface{} `json:"data"`
+}
+
+func MustStringfiy(data interface{}) string {
+	byt, err := json.Marshal(data)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return string(byt)
+}
+
+
+var RendererX Renderer
+var RendererMutex = sync.Mutex{}
+
+func main() {
+	handel := func () {
+		RendererMutex.Lock()
+		RendererX.Free()
+		RendererX = NewRenderer()
+		RendererMutex.Unlock()
+	}
+
+
+	events := builder.HandelHotReload(handel)
 	builder.Build(events)
+	RendererMutex.Lock()
+	RendererX = NewRenderer()
+	RendererMutex.Unlock()
 
 	http.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir("./build/client"))))
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		if r.URL.Path != "/" {
-			w.WriteHeader(http.StatusNotFound)
-			return
-		}
 		log.Println("handel client runs ok")
-		strx := NewRenderer()
-		byteToW := []byte(strx)
-		_, err := w.Write(byteToW)
+
+		RendererMutex.Lock()
+		html := RendererX.RendererHtml(r.URL.Path, MustStringfiy(Loader(r.URL.Path)))
+		RendererMutex.Unlock()
+
+		_, err := w.Write([]byte(html))
 		if err != nil {
 			log.Fatal(err)
 		}
 	})
 
+
+	log.Println("start server at http://localhost:8080")
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
-// type Renderer struct {
-// iso    *v8.Isolate
-// ctx    *quickjs.Context
-// global quickjs.Value
-// }
+type Renderer struct {
+	iso    *v8.Isolate
+	global *v8.Object
+	fn     *v8.Function
+	ctx *v8.Context
+}
 
-func NewRenderer() string {
+func (renderer Renderer) Free() {
+	renderer.fn.Release()
+	renderer.global.Release()
+	renderer.iso.Dispose()
+}
+
+func NewRenderer() Renderer {
 	iso := v8.NewIsolate()
 
 	b, err := os.ReadFile("./build/server/script.js")
 	if err != nil {
-		log.Println("1")
 		log.Fatal(err)
 	}
 
-	res, err := iso.CompileUnboundScript(string(b), "hello", v8.CompileOptions{})
-
+	res, err := iso.CompileUnboundScript(string(b), "input", v8.CompileOptions{})
 	if err != nil {
-		log.Println("3")
 		log.Fatal(err)
 	}
 
 	ctx := v8.NewContext(iso)
-	_, err = res.Run(ctx)
+	resT, err := res.Run(ctx)
 	if err != nil {
-		log.Println("3")
 		log.Fatal(err)
 	}
+	resT.Release()
 
 	global := ctx.Global()
-
-	args, err := v8.NewValue(iso, "/")
-	if err != nil {
-		log.Println("2")
-		log.Fatal(err)
-	}
 
 	data, err := global.Get("RenderHtml")
 	if err != nil {
@@ -83,38 +131,32 @@ func NewRenderer() string {
 		log.Fatal(err)
 	}
 
-	val, err := f.Call(global, args)
+	return Renderer{
+		iso:    iso,
+		global: global,
+		fn:     f,
+		ctx: ctx,
+	}
+}
 
+func (renderer Renderer) RendererHtml(url string, props string) string {
+	arg1, err := v8.NewValue(renderer.iso, props)
 	if err != nil {
 		log.Fatal(err)
 	}
+	defer arg1.Release()
+
+	arg2, err := v8.NewValue(renderer.iso, url)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer arg2.Release()
+
+	val, err := renderer.fn.Call(renderer.global, arg2, arg1)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer val.Release()
 
 	return val.String()
 }
-
-// func (this Renderer) RenderHtml() quickjs.Value {
-// 	// names, err := this.global.PropertyNames()
-// 	// if err != nil {
-// 	// log.Println("3")
-// 	// log.Fatal(err)
-// 	// }
-// 	// log.Println(names)
-// 	Redr := this.global.Get("RenderHtml")
-// 	Res2 := this.ctx.JsFunction(this.global, Redr, []quickjs.Value{this.ctx.String("/")})
-// 	err2 := this.global.Error()
-// 	err3 := this.ctx.Exception()
-// 	val := Res2.String()
-// 	log.Println(val)
-// 	log.Println(err2)
-// 	log.Println(err3)
-// 	// var html string = Res2.String()
-// 	// go Res2.Free()
-// 	// go res.Free()
-// 	return Res2
-// }
-
-// func (this Renderer) Free() {
-// 	this.global.Free()
-// 	this.ctx.Free()
-// 	this.runtime.Free()
-// }

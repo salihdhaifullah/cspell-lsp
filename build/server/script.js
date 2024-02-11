@@ -1,25 +1,24 @@
 
-				function TextEncoder() {
-				  this.encode = function encode(str) {
-					var buf = new ArrayBuffer(str.length * 3);
-					var bufView = new Uint8Array(buf);
-					for (var i = 0, strLen = str.length; i < strLen; i++) {
-					  var value = str.charCodeAt(i);
-					  if (value < 128) {
-						bufView[i] = value;
-					  } else if (value < 2048) {
-						bufView[i++] = 192 | (value >> 6);
-						bufView[i] = 128 | (value & 63);
-					  } else {
-						bufView[i++] = 224 | (value >> 12);
-						bufView[i++] = 128 | ((value >> 6) & 63);
-						bufView[i] = 128 | (value & 63);
-					  }
-					}
-					return bufView.slice(0, i);
-				  };
+			function TextEncoder() {
+			  this.encode = function encode(str) {
+				var buf = new ArrayBuffer(str.length * 3);
+				var bufView = new Uint8Array(buf);
+				for (var i = 0, strLen = str.length; i < strLen; i++) {
+				  var value = str.charCodeAt(i);
+				  if (value < 128) {
+					bufView[i] = value;
+				  } else if (value < 2048) {
+					bufView[i++] = 192 | (value >> 6);
+					bufView[i] = 128 | (value & 63);
+				  } else {
+					bufView[i++] = 224 | (value >> 12);
+					bufView[i++] = 128 | ((value >> 6) & 63);
+					bufView[i] = 128 | (value & 63);
+				  }
 				}
-"use strict";
+				return bufView.slice(0, i);
+			  };
+			}
 var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -49,7 +48,7 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
 
 // viteApp/node_modules/react/cjs/react.development.js
 var require_react_development = __commonJS({
-  "viteApp/node_modules/react/cjs/react.development.js"(exports, module2) {
+  "viteApp/node_modules/react/cjs/react.development.js"(exports, module) {
     "use strict";
     if (true) {
       (function() {
@@ -1165,11 +1164,11 @@ var require_react_development = __commonJS({
           return dispatcher.useRef(initialValue);
         }
         __name(useRef, "useRef");
-        function useEffect(create, deps) {
+        function useEffect2(create, deps) {
           var dispatcher = resolveDispatcher();
           return dispatcher.useEffect(create, deps);
         }
-        __name(useEffect, "useEffect");
+        __name(useEffect2, "useEffect");
         function useInsertionEffect(create, deps) {
           var dispatcher = resolveDispatcher();
           return dispatcher.useInsertionEffect(create, deps);
@@ -1786,8 +1785,8 @@ var require_react_development = __commonJS({
           if (enqueueTaskImpl === null) {
             try {
               var requireString = ("require" + Math.random()).slice(0, 7);
-              var nodeRequire = module2 && module2[requireString];
-              enqueueTaskImpl = nodeRequire.call(module2, "timers").setImmediate;
+              var nodeRequire = module && module[requireString];
+              enqueueTaskImpl = nodeRequire.call(module, "timers").setImmediate;
             } catch (_err) {
               enqueueTaskImpl = /* @__PURE__ */ __name(function(callback) {
                 {
@@ -1986,7 +1985,7 @@ var require_react_development = __commonJS({
         exports.useContext = useContext;
         exports.useDebugValue = useDebugValue;
         exports.useDeferredValue = useDeferredValue;
-        exports.useEffect = useEffect;
+        exports.useEffect = useEffect2;
         exports.useId = useId;
         exports.useImperativeHandle = useImperativeHandle;
         exports.useInsertionEffect = useInsertionEffect;
@@ -2008,12 +2007,12 @@ var require_react_development = __commonJS({
 
 // viteApp/node_modules/react/index.js
 var require_react = __commonJS({
-  "viteApp/node_modules/react/index.js"(exports, module2) {
+  "viteApp/node_modules/react/index.js"(exports, module) {
     "use strict";
     if (false) {
-      module2.exports = null;
+      module.exports = null;
     } else {
-      module2.exports = require_react_development();
+      module.exports = require_react_development();
     }
   }
 });
@@ -14058,10 +14057,10 @@ var require_react_jsx_runtime_development = __commonJS({
           }
         }
         __name(jsxWithValidationDynamic, "jsxWithValidationDynamic");
-        var jsx3 = jsxWithValidationDynamic;
+        var jsx5 = jsxWithValidationDynamic;
         var jsxs2 = jsxWithValidationStatic;
         exports.Fragment = REACT_FRAGMENT_TYPE;
-        exports.jsx = jsx3;
+        exports.jsx = jsx5;
         exports.jsxs = jsxs2;
       })();
     }
@@ -14070,12 +14069,12 @@ var require_react_jsx_runtime_development = __commonJS({
 
 // viteApp/node_modules/react/jsx-runtime.js
 var require_jsx_runtime = __commonJS({
-  "viteApp/node_modules/react/jsx-runtime.js"(exports, module2) {
+  "viteApp/node_modules/react/jsx-runtime.js"(exports, module) {
     "use strict";
     if (false) {
-      module2.exports = null;
+      module.exports = null;
     } else {
-      module2.exports = require_react_jsx_runtime_development();
+      module.exports = require_react_jsx_runtime_development();
     }
   }
 });
@@ -14087,7 +14086,10 @@ var import_server = __toESM(require_server_browser(), 1);
 // viteApp/src/App.tsx
 var import_react = __toESM(require_react(), 1);
 var import_jsx_runtime = __toESM(require_jsx_runtime(), 1);
-function App() {
+function App(props) {
+  (0, import_react.useEffect)(() => {
+    console.log(props);
+  }, []);
   const [count, setCount] = (0, import_react.useState)(0);
   return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
     /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
@@ -14104,6 +14106,18 @@ function App() {
         "Edit ",
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("code", { children: "src/App.tsx" }),
         " and save to test HMR"
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", { children: [
+        "person name is ",
+        props.data.name
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", { children: [
+        "person age is ",
+        props.data.age
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", { children: [
+        "is ok ",
+        String(props.ok)
       ] })
     ] }),
     /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { className: "read-the-docs", children: "Click on the Golang and React logos to learn more" })
@@ -14112,18 +14126,39 @@ function App() {
 __name(App, "App");
 var App_default = App;
 
-// viteApp/src/entry-server.tsx
+// viteApp/src/Login.tsx
 var import_jsx_runtime2 = __toESM(require_jsx_runtime(), 1);
-function render(url) {
+var Login = /* @__PURE__ */ __name(() => {
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { children: "Login" });
+}, "Login");
+var Login_default = Login;
+
+// viteApp/staticRouter.tsx
+var import_jsx_runtime3 = __toESM(require_jsx_runtime(), 1);
+var routes = {
+  "/": App_default,
+  "/login": Login_default
+};
+var StaticRouter = /* @__PURE__ */ __name((url, props) => {
+  const Page = routes[url];
+  return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { children: Page ? /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Page, { ...props }) : /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("h1", { children: "Not Found" }) });
+}, "StaticRouter");
+var staticRouter_default = StaticRouter;
+
+// viteApp/src/entry-server.tsx
+var import_jsx_runtime4 = __toESM(require_jsx_runtime(), 1);
+function render(url, props) {
+  const Page = staticRouter_default(url, props);
   const html = import_server.default.renderToString(
-    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_react2.default.StrictMode, { children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(App_default, {}) })
+    /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(import_react2.default.StrictMode, { children: Page })
   );
   return { html, head: "" };
 }
 __name(render, "render");
 
 // viteApp/script.ts
-var template = `
+var GetTemplate = /* @__PURE__ */ __name((head, app, props) => {
+  return `
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -14132,10 +14167,10 @@ var template = `
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/public/entry-client.css" />
     <title>Vite + React + TS</title>
-    <!--app-head-->
+    ${head}
   </head>
   <body>
-    <div id="root"><!--app-html--></div>
+    <div id="root">${app}</div>
     <script type="module" src="/public/entry-client.js"><\/script>
     <script>
         const events = new EventSource("/events")
@@ -14143,17 +14178,18 @@ var template = `
           window.location.reload()
         })
     <\/script>
+      <script>
+        window["Props"] = ${props};
+      <\/script>
   </body>
 </html>
 `;
-function RenderHtml(url) {
-  try {
-    const rendered = render(url);
-    const html = template.replace(`<!--app-head-->`, rendered.head ?? "").replace(`<!--app-html-->`, rendered.html ?? "");
-    return html;
-  } catch (e) {
-    console.log(e.stack);
-  }
+}, "GetTemplate");
+function RenderHtml(url, propsJson) {
+  const props = JSON.parse(propsJson);
+  const rendered = render(url, props);
+  const html = GetTemplate(rendered.head, rendered.html, propsJson);
+  return html;
 }
 __name(RenderHtml, "RenderHtml");
 globalThis["RenderHtml"] = RenderHtml;

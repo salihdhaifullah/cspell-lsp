@@ -1,0 +1,8 @@
+{
+    "ignore_regex": [],
+    "ignore": ["vendor", ".git", ".bin", "viteApp", "build"],
+    "delay": 1500,
+    "setup_commands": [],
+    "parallel_commands": [],
+    "background_commands": ["go run ."]
+}

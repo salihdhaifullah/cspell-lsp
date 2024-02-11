@@ -1,4 +1,4 @@
-package main
+package builder
 
 import (
 	"fmt"
@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-func HandelHotReload() chan struct{} {
+func HandelHotReload(handel func()) chan struct{} {
 	events := make(chan struct{})
 
 	http.HandleFunc("/events", func(w http.ResponseWriter, r *http.Request) {
@@ -23,6 +23,8 @@ func HandelHotReload() chan struct{} {
 		  select {
 		  case <-events:
 			// NOTE: I needed to add "data" to get server-sent events to work. YMMV.
+
+			handel()
 			fmt.Fprintf(w, "event: reload\ndata\n\n")
 			flusher.Flush()
 		  case <-r.Context().Done():

@@ -1,6 +1,8 @@
 import { render } from './src/entry-server.jsx'
+import { Props } from './src/index.js'
 
-let template = `
+const GetTemplate = (head: string, app: string, props: string) => {
+return `
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -9,10 +11,10 @@ let template = `
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/public/entry-client.css" />
     <title>Vite + React + TS</title>
-    <!--app-head-->
+    ${head}
   </head>
   <body>
-    <div id="root"><!--app-html--></div>
+    <div id="root">${app}</div>
     <script type="module" src="/public/entry-client.js"></script>
     <script>
         const events = new EventSource("/events")
@@ -20,23 +22,21 @@ let template = `
           window.location.reload()
         })
     </script>
+      <script>
+        window["Props"] = ${props};
+      </script>
   </body>
 </html>
 `
+}
 
-// need to serve static dist
-function RenderHtml(url: string) {
-  try {
-    const rendered = render(url)
 
-    const html = template
-      .replace(`<!--app-head-->`, rendered.head ?? '')
-      .replace(`<!--app-html-->`, rendered.html ?? '')
 
-    return html
-  } catch (e) {
-    console.log(e.stack)
-  }
+function RenderHtml(url: string, propsJson: string) {
+  const props = JSON.parse(propsJson) as Props<unknown>
+  const rendered = render(url, props)
+  const html = GetTemplate(rendered.head, rendered.html, propsJson)
+  return html
 }
 
 globalThis["RenderHtml"] = RenderHtml

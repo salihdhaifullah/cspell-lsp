@@ -1,25 +1,24 @@
 
-				function TextEncoder() {
-				  this.encode = function encode(str) {
-					var buf = new ArrayBuffer(str.length * 3);
-					var bufView = new Uint8Array(buf);
-					for (var i = 0, strLen = str.length; i < strLen; i++) {
-					  var value = str.charCodeAt(i);
-					  if (value < 128) {
-						bufView[i] = value;
-					  } else if (value < 2048) {
-						bufView[i++] = 192 | (value >> 6);
-						bufView[i] = 128 | (value & 63);
-					  } else {
-						bufView[i++] = 224 | (value >> 12);
-						bufView[i++] = 128 | ((value >> 6) & 63);
-						bufView[i] = 128 | (value & 63);
-					  }
-					}
-					return bufView.slice(0, i);
-				  };
+			function TextEncoder() {
+			  this.encode = function encode(str) {
+				var buf = new ArrayBuffer(str.length * 3);
+				var bufView = new Uint8Array(buf);
+				for (var i = 0, strLen = str.length; i < strLen; i++) {
+				  var value = str.charCodeAt(i);
+				  if (value < 128) {
+					bufView[i] = value;
+				  } else if (value < 2048) {
+					bufView[i++] = 192 | (value >> 6);
+					bufView[i] = 128 | (value & 63);
+				  } else {
+					bufView[i++] = 224 | (value >> 12);
+					bufView[i++] = 128 | ((value >> 6) & 63);
+					bufView[i] = 128 | (value & 63);
+				  }
 				}
-"use strict";
+				return bufView.slice(0, i);
+			  };
+			}
 var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -27,8 +26,15 @@ var __getOwnPropNames = Object.getOwnPropertyNames;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
+var __esm = (fn, res) => function __init() {
+  return fn && (res = (0, fn[__getOwnPropNames(fn)[0]])(fn = 0)), res;
+};
 var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+};
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
 };
 var __copyProps = (to, from, except, desc) => {
   if (from && typeof from === "object" || typeof from === "function") {
@@ -49,7 +55,7 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
 
 // viteApp/node_modules/react/cjs/react.development.js
 var require_react_development = __commonJS({
-  "viteApp/node_modules/react/cjs/react.development.js"(exports, module2) {
+  "viteApp/node_modules/react/cjs/react.development.js"(exports, module) {
     "use strict";
     if (true) {
       (function() {
@@ -266,8 +272,8 @@ var require_react_development = __commonJS({
         {
           Object.freeze(emptyObject);
         }
-        function Component(props, context, updater) {
-          this.props = props;
+        function Component(props2, context, updater) {
+          this.props = props2;
           this.context = context;
           this.refs = emptyObject;
           this.updater = updater || ReactNoopUpdateQueue;
@@ -306,8 +312,8 @@ var require_react_development = __commonJS({
         }
         __name(ComponentDummy, "ComponentDummy");
         ComponentDummy.prototype = Component.prototype;
-        function PureComponent(props, context, updater) {
-          this.props = props;
+        function PureComponent(props2, context, updater) {
+          this.props = props2;
           this.context = context;
           this.refs = emptyObject;
           this.updater = updater || ReactNoopUpdateQueue;
@@ -472,7 +478,7 @@ var require_react_development = __commonJS({
           return config.key !== void 0;
         }
         __name(hasValidKey, "hasValidKey");
-        function defineKeyPropWarningGetter(props, displayName) {
+        function defineKeyPropWarningGetter(props2, displayName) {
           var warnAboutAccessingKey = /* @__PURE__ */ __name(function() {
             {
               if (!specialPropKeyWarningShown) {
@@ -482,13 +488,13 @@ var require_react_development = __commonJS({
             }
           }, "warnAboutAccessingKey");
           warnAboutAccessingKey.isReactWarning = true;
-          Object.defineProperty(props, "key", {
+          Object.defineProperty(props2, "key", {
             get: warnAboutAccessingKey,
             configurable: true
           });
         }
         __name(defineKeyPropWarningGetter, "defineKeyPropWarningGetter");
-        function defineRefPropWarningGetter(props, displayName) {
+        function defineRefPropWarningGetter(props2, displayName) {
           var warnAboutAccessingRef = /* @__PURE__ */ __name(function() {
             {
               if (!specialPropRefWarningShown) {
@@ -498,7 +504,7 @@ var require_react_development = __commonJS({
             }
           }, "warnAboutAccessingRef");
           warnAboutAccessingRef.isReactWarning = true;
-          Object.defineProperty(props, "ref", {
+          Object.defineProperty(props2, "ref", {
             get: warnAboutAccessingRef,
             configurable: true
           });
@@ -516,7 +522,7 @@ var require_react_development = __commonJS({
           }
         }
         __name(warnIfStringRefCannotBeAutoConverted, "warnIfStringRefCannotBeAutoConverted");
-        var ReactElement = /* @__PURE__ */ __name(function(type, key, ref, self, source, owner, props) {
+        var ReactElement = /* @__PURE__ */ __name(function(type, key, ref, self, source, owner, props2) {
           var element = {
             // This tag allows us to uniquely identify this as a React Element
             $$typeof: REACT_ELEMENT_TYPE,
@@ -524,7 +530,7 @@ var require_react_development = __commonJS({
             type,
             key,
             ref,
-            props,
+            props: props2,
             // Record the component responsible for creating this element.
             _owner: owner
           };
@@ -557,7 +563,7 @@ var require_react_development = __commonJS({
         }, "ReactElement");
         function createElement(type, config, children) {
           var propName;
-          var props = {};
+          var props2 = {};
           var key = null;
           var ref = null;
           var self = null;
@@ -579,13 +585,13 @@ var require_react_development = __commonJS({
             source = config.__source === void 0 ? null : config.__source;
             for (propName in config) {
               if (hasOwnProperty.call(config, propName) && !RESERVED_PROPS.hasOwnProperty(propName)) {
-                props[propName] = config[propName];
+                props2[propName] = config[propName];
               }
             }
           }
           var childrenLength = arguments.length - 2;
           if (childrenLength === 1) {
-            props.children = children;
+            props2.children = children;
           } else if (childrenLength > 1) {
             var childArray = Array(childrenLength);
             for (var i = 0; i < childrenLength; i++) {
@@ -596,13 +602,13 @@ var require_react_development = __commonJS({
                 Object.freeze(childArray);
               }
             }
-            props.children = childArray;
+            props2.children = childArray;
           }
           if (type && type.defaultProps) {
             var defaultProps = type.defaultProps;
             for (propName in defaultProps) {
-              if (props[propName] === void 0) {
-                props[propName] = defaultProps[propName];
+              if (props2[propName] === void 0) {
+                props2[propName] = defaultProps[propName];
               }
             }
           }
@@ -610,14 +616,14 @@ var require_react_development = __commonJS({
             if (key || ref) {
               var displayName = typeof type === "function" ? type.displayName || type.name || "Unknown" : type;
               if (key) {
-                defineKeyPropWarningGetter(props, displayName);
+                defineKeyPropWarningGetter(props2, displayName);
               }
               if (ref) {
-                defineRefPropWarningGetter(props, displayName);
+                defineRefPropWarningGetter(props2, displayName);
               }
             }
           }
-          return ReactElement(type, key, ref, self, source, ReactCurrentOwner.current, props);
+          return ReactElement(type, key, ref, self, source, ReactCurrentOwner.current, props2);
         }
         __name(createElement, "createElement");
         function cloneAndReplaceKey(oldElement, newKey) {
@@ -630,7 +636,7 @@ var require_react_development = __commonJS({
             throw new Error("React.cloneElement(...): The argument must be a React element, but you passed " + element + ".");
           }
           var propName;
-          var props = assign({}, element.props);
+          var props2 = assign({}, element.props);
           var key = element.key;
           var ref = element.ref;
           var self = element._self;
@@ -654,24 +660,24 @@ var require_react_development = __commonJS({
             for (propName in config) {
               if (hasOwnProperty.call(config, propName) && !RESERVED_PROPS.hasOwnProperty(propName)) {
                 if (config[propName] === void 0 && defaultProps !== void 0) {
-                  props[propName] = defaultProps[propName];
+                  props2[propName] = defaultProps[propName];
                 } else {
-                  props[propName] = config[propName];
+                  props2[propName] = config[propName];
                 }
               }
             }
           }
           var childrenLength = arguments.length - 2;
           if (childrenLength === 1) {
-            props.children = children;
+            props2.children = children;
           } else if (childrenLength > 1) {
             var childArray = Array(childrenLength);
             for (var i = 0; i < childrenLength; i++) {
               childArray[i] = arguments[i + 2];
             }
-            props.children = childArray;
+            props2.children = childArray;
           }
-          return ReactElement(element.type, key, ref, self, source, owner, props);
+          return ReactElement(element.type, key, ref, self, source, owner, props2);
         }
         __name(cloneElement, "cloneElement");
         function isValidElement(object) {
@@ -1165,11 +1171,11 @@ var require_react_development = __commonJS({
           return dispatcher.useRef(initialValue);
         }
         __name(useRef, "useRef");
-        function useEffect(create, deps) {
+        function useEffect2(create, deps) {
           var dispatcher = resolveDispatcher();
           return dispatcher.useEffect(create, deps);
         }
-        __name(useEffect, "useEffect");
+        __name(useEffect2, "useEffect");
         function useInsertionEffect(create, deps) {
           var dispatcher = resolveDispatcher();
           return dispatcher.useInsertionEffect(create, deps);
@@ -1244,20 +1250,20 @@ var require_react_development = __commonJS({
               prevGroup = console.group;
               prevGroupCollapsed = console.groupCollapsed;
               prevGroupEnd = console.groupEnd;
-              var props = {
+              var props2 = {
                 configurable: true,
                 enumerable: true,
                 value: disabledLog,
                 writable: true
               };
               Object.defineProperties(console, {
-                info: props,
-                log: props,
-                warn: props,
-                error: props,
-                group: props,
-                groupCollapsed: props,
-                groupEnd: props
+                info: props2,
+                log: props2,
+                warn: props2,
+                error: props2,
+                group: props2,
+                groupCollapsed: props2,
+                groupEnd: props2
               });
             }
             disabledDepth++;
@@ -1268,31 +1274,31 @@ var require_react_development = __commonJS({
           {
             disabledDepth--;
             if (disabledDepth === 0) {
-              var props = {
+              var props2 = {
                 configurable: true,
                 enumerable: true,
                 writable: true
               };
               Object.defineProperties(console, {
-                log: assign({}, props, {
+                log: assign({}, props2, {
                   value: prevLog
                 }),
-                info: assign({}, props, {
+                info: assign({}, props2, {
                   value: prevInfo
                 }),
-                warn: assign({}, props, {
+                warn: assign({}, props2, {
                   value: prevWarn
                 }),
-                error: assign({}, props, {
+                error: assign({}, props2, {
                   value: prevError
                 }),
-                group: assign({}, props, {
+                group: assign({}, props2, {
                   value: prevGroup
                 }),
-                groupCollapsed: assign({}, props, {
+                groupCollapsed: assign({}, props2, {
                   value: prevGroupCollapsed
                 }),
-                groupEnd: assign({}, props, {
+                groupEnd: assign({}, props2, {
                   value: prevGroupEnd
                 })
               });
@@ -1680,14 +1686,14 @@ var require_react_development = __commonJS({
           }
         }
         __name(validateFragmentProps, "validateFragmentProps");
-        function createElementWithValidation(type, props, children) {
+        function createElementWithValidation(type, props2, children) {
           var validType = isValidElementType(type);
           if (!validType) {
             var info = "";
             if (type === void 0 || typeof type === "object" && type !== null && Object.keys(type).length === 0) {
               info += " You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.";
             }
-            var sourceInfo = getSourceInfoErrorAddendumForProps(props);
+            var sourceInfo = getSourceInfoErrorAddendumForProps(props2);
             if (sourceInfo) {
               info += sourceInfo;
             } else {
@@ -1748,7 +1754,7 @@ var require_react_development = __commonJS({
           return validatedFactory;
         }
         __name(createFactoryWithValidation, "createFactoryWithValidation");
-        function cloneElementWithValidation(element, props, children) {
+        function cloneElementWithValidation(element, props2, children) {
           var newElement = cloneElement.apply(this, arguments);
           for (var i = 2; i < arguments.length; i++) {
             validateChildKeys(arguments[i], newElement.type);
@@ -1786,8 +1792,8 @@ var require_react_development = __commonJS({
           if (enqueueTaskImpl === null) {
             try {
               var requireString = ("require" + Math.random()).slice(0, 7);
-              var nodeRequire = module2 && module2[requireString];
-              enqueueTaskImpl = nodeRequire.call(module2, "timers").setImmediate;
+              var nodeRequire = module && module[requireString];
+              enqueueTaskImpl = nodeRequire.call(module, "timers").setImmediate;
             } catch (_err) {
               enqueueTaskImpl = /* @__PURE__ */ __name(function(callback) {
                 {
@@ -1986,7 +1992,7 @@ var require_react_development = __commonJS({
         exports.useContext = useContext;
         exports.useDebugValue = useDebugValue;
         exports.useDeferredValue = useDeferredValue;
-        exports.useEffect = useEffect;
+        exports.useEffect = useEffect2;
         exports.useId = useId;
         exports.useImperativeHandle = useImperativeHandle;
         exports.useInsertionEffect = useInsertionEffect;
@@ -2008,12 +2014,12 @@ var require_react_development = __commonJS({
 
 // viteApp/node_modules/react/index.js
 var require_react = __commonJS({
-  "viteApp/node_modules/react/index.js"(exports, module2) {
+  "viteApp/node_modules/react/index.js"(exports, module) {
     "use strict";
     if (false) {
-      module2.exports = null;
+      module.exports = null;
     } else {
-      module2.exports = require_react_development();
+      module.exports = require_react_development();
     }
   }
 });
@@ -2496,12 +2502,12 @@ var require_scheduler_development = __commonJS({
 
 // viteApp/node_modules/scheduler/index.js
 var require_scheduler = __commonJS({
-  "viteApp/node_modules/scheduler/index.js"(exports, module2) {
+  "viteApp/node_modules/scheduler/index.js"(exports, module) {
     "use strict";
     if (false) {
-      module2.exports = null;
+      module.exports = null;
     } else {
-      module2.exports = require_scheduler_development();
+      module.exports = require_scheduler_development();
     }
   }
 });
@@ -3389,20 +3395,20 @@ var require_react_dom_development = __commonJS({
               prevGroup = console.group;
               prevGroupCollapsed = console.groupCollapsed;
               prevGroupEnd = console.groupEnd;
-              var props = {
+              var props2 = {
                 configurable: true,
                 enumerable: true,
                 value: disabledLog,
                 writable: true
               };
               Object.defineProperties(console, {
-                info: props,
-                log: props,
-                warn: props,
-                error: props,
-                group: props,
-                groupCollapsed: props,
-                groupEnd: props
+                info: props2,
+                log: props2,
+                warn: props2,
+                error: props2,
+                group: props2,
+                groupCollapsed: props2,
+                groupEnd: props2
               });
             }
             disabledDepth++;
@@ -3413,31 +3419,31 @@ var require_react_dom_development = __commonJS({
           {
             disabledDepth--;
             if (disabledDepth === 0) {
-              var props = {
+              var props2 = {
                 configurable: true,
                 enumerable: true,
                 writable: true
               };
               Object.defineProperties(console, {
-                log: assign({}, props, {
+                log: assign({}, props2, {
                   value: prevLog
                 }),
-                info: assign({}, props, {
+                info: assign({}, props2, {
                   value: prevInfo
                 }),
-                warn: assign({}, props, {
+                warn: assign({}, props2, {
                   value: prevWarn
                 }),
-                error: assign({}, props, {
+                error: assign({}, props2, {
                   value: prevError
                 }),
-                group: assign({}, props, {
+                group: assign({}, props2, {
                   value: prevGroup
                 }),
-                groupCollapsed: assign({}, props, {
+                groupCollapsed: assign({}, props2, {
                   value: prevGroupCollapsed
                 }),
-                groupEnd: assign({}, props, {
+                groupEnd: assign({}, props2, {
                   value: prevGroupEnd
                 })
               });
@@ -3894,12 +3900,12 @@ var require_react_dom_development = __commonJS({
           reset: true,
           submit: true
         };
-        function checkControlledValueProps(tagName, props) {
+        function checkControlledValueProps(tagName, props2) {
           {
-            if (!(hasReadOnlyValue[props.type] || props.onChange || props.onInput || props.readOnly || props.disabled || props.value == null)) {
+            if (!(hasReadOnlyValue[props2.type] || props2.onChange || props2.onInput || props2.readOnly || props2.disabled || props2.value == null)) {
               error("You provided a `value` prop to a form field without an `onChange` handler. This will render a read-only field. If the field should be mutable use `defaultValue`. Otherwise, set either `onChange` or `readOnly`.");
             }
-            if (!(props.onChange || props.readOnly || props.disabled || props.checked == null)) {
+            if (!(props2.onChange || props2.readOnly || props2.disabled || props2.checked == null)) {
               error("You provided a `checked` prop to a form field without an `onChange` handler. This will render a read-only field. If the field should be mutable use `defaultChecked`. Otherwise, set either `onChange` or `readOnly`.");
             }
           }
@@ -4017,15 +4023,15 @@ var require_react_dom_development = __commonJS({
         var didWarnCheckedDefaultChecked = false;
         var didWarnControlledToUncontrolled = false;
         var didWarnUncontrolledToControlled = false;
-        function isControlled(props) {
-          var usesChecked = props.type === "checkbox" || props.type === "radio";
-          return usesChecked ? props.checked != null : props.value != null;
+        function isControlled(props2) {
+          var usesChecked = props2.type === "checkbox" || props2.type === "radio";
+          return usesChecked ? props2.checked != null : props2.value != null;
         }
         __name(isControlled, "isControlled");
-        function getHostProps(element, props) {
+        function getHostProps(element, props2) {
           var node = element;
-          var checked = props.checked;
-          var hostProps = assign({}, props, {
+          var checked = props2.checked;
+          var hostProps = assign({}, props2, {
             defaultChecked: void 0,
             defaultValue: void 0,
             value: void 0,
@@ -4034,39 +4040,39 @@ var require_react_dom_development = __commonJS({
           return hostProps;
         }
         __name(getHostProps, "getHostProps");
-        function initWrapperState(element, props) {
+        function initWrapperState(element, props2) {
           {
-            checkControlledValueProps("input", props);
-            if (props.checked !== void 0 && props.defaultChecked !== void 0 && !didWarnCheckedDefaultChecked) {
-              error("%s contains an input of type %s with both checked and defaultChecked props. Input elements must be either controlled or uncontrolled (specify either the checked prop, or the defaultChecked prop, but not both). Decide between using a controlled or uncontrolled input element and remove one of these props. More info: https://reactjs.org/link/controlled-components", getCurrentFiberOwnerNameInDevOrNull() || "A component", props.type);
+            checkControlledValueProps("input", props2);
+            if (props2.checked !== void 0 && props2.defaultChecked !== void 0 && !didWarnCheckedDefaultChecked) {
+              error("%s contains an input of type %s with both checked and defaultChecked props. Input elements must be either controlled or uncontrolled (specify either the checked prop, or the defaultChecked prop, but not both). Decide between using a controlled or uncontrolled input element and remove one of these props. More info: https://reactjs.org/link/controlled-components", getCurrentFiberOwnerNameInDevOrNull() || "A component", props2.type);
               didWarnCheckedDefaultChecked = true;
             }
-            if (props.value !== void 0 && props.defaultValue !== void 0 && !didWarnValueDefaultValue) {
-              error("%s contains an input of type %s with both value and defaultValue props. Input elements must be either controlled or uncontrolled (specify either the value prop, or the defaultValue prop, but not both). Decide between using a controlled or uncontrolled input element and remove one of these props. More info: https://reactjs.org/link/controlled-components", getCurrentFiberOwnerNameInDevOrNull() || "A component", props.type);
+            if (props2.value !== void 0 && props2.defaultValue !== void 0 && !didWarnValueDefaultValue) {
+              error("%s contains an input of type %s with both value and defaultValue props. Input elements must be either controlled or uncontrolled (specify either the value prop, or the defaultValue prop, but not both). Decide between using a controlled or uncontrolled input element and remove one of these props. More info: https://reactjs.org/link/controlled-components", getCurrentFiberOwnerNameInDevOrNull() || "A component", props2.type);
               didWarnValueDefaultValue = true;
             }
           }
           var node = element;
-          var defaultValue = props.defaultValue == null ? "" : props.defaultValue;
+          var defaultValue = props2.defaultValue == null ? "" : props2.defaultValue;
           node._wrapperState = {
-            initialChecked: props.checked != null ? props.checked : props.defaultChecked,
-            initialValue: getToStringValue(props.value != null ? props.value : defaultValue),
-            controlled: isControlled(props)
+            initialChecked: props2.checked != null ? props2.checked : props2.defaultChecked,
+            initialValue: getToStringValue(props2.value != null ? props2.value : defaultValue),
+            controlled: isControlled(props2)
           };
         }
         __name(initWrapperState, "initWrapperState");
-        function updateChecked(element, props) {
+        function updateChecked(element, props2) {
           var node = element;
-          var checked = props.checked;
+          var checked = props2.checked;
           if (checked != null) {
             setValueForProperty(node, "checked", checked, false);
           }
         }
         __name(updateChecked, "updateChecked");
-        function updateWrapper(element, props) {
+        function updateWrapper(element, props2) {
           var node = element;
           {
-            var controlled = isControlled(props);
+            var controlled = isControlled(props2);
             if (!node._wrapperState.controlled && controlled && !didWarnUncontrolledToControlled) {
               error("A component is changing an uncontrolled input to be controlled. This is likely caused by the value changing from undefined to a defined value, which should not happen. Decide between using a controlled or uncontrolled input element for the lifetime of the component. More info: https://reactjs.org/link/controlled-components");
               didWarnUncontrolledToControlled = true;
@@ -4076,9 +4082,9 @@ var require_react_dom_development = __commonJS({
               didWarnControlledToUncontrolled = true;
             }
           }
-          updateChecked(element, props);
-          var value = getToStringValue(props.value);
-          var type = props.type;
+          updateChecked(element, props2);
+          var value = getToStringValue(props2.value);
+          var type = props2.type;
           if (value != null) {
             if (type === "number") {
               if (value === 0 && node.value === "" || // We explicitly want to coerce to number here if possible.
@@ -4094,25 +4100,25 @@ var require_react_dom_development = __commonJS({
             return;
           }
           {
-            if (props.hasOwnProperty("value")) {
-              setDefaultValue(node, props.type, value);
-            } else if (props.hasOwnProperty("defaultValue")) {
-              setDefaultValue(node, props.type, getToStringValue(props.defaultValue));
+            if (props2.hasOwnProperty("value")) {
+              setDefaultValue(node, props2.type, value);
+            } else if (props2.hasOwnProperty("defaultValue")) {
+              setDefaultValue(node, props2.type, getToStringValue(props2.defaultValue));
             }
           }
           {
-            if (props.checked == null && props.defaultChecked != null) {
-              node.defaultChecked = !!props.defaultChecked;
+            if (props2.checked == null && props2.defaultChecked != null) {
+              node.defaultChecked = !!props2.defaultChecked;
             }
           }
         }
         __name(updateWrapper, "updateWrapper");
-        function postMountWrapper(element, props, isHydrating2) {
+        function postMountWrapper(element, props2, isHydrating2) {
           var node = element;
-          if (props.hasOwnProperty("value") || props.hasOwnProperty("defaultValue")) {
-            var type = props.type;
+          if (props2.hasOwnProperty("value") || props2.hasOwnProperty("defaultValue")) {
+            var type = props2.type;
             var isButton = type === "submit" || type === "reset";
-            if (isButton && (props.value === void 0 || props.value === null)) {
+            if (isButton && (props2.value === void 0 || props2.value === null)) {
               return;
             }
             var initialValue = toString(node._wrapperState.initialValue);
@@ -4140,15 +4146,15 @@ var require_react_dom_development = __commonJS({
           }
         }
         __name(postMountWrapper, "postMountWrapper");
-        function restoreControlledState(element, props) {
+        function restoreControlledState(element, props2) {
           var node = element;
-          updateWrapper(node, props);
-          updateNamedCousins(node, props);
+          updateWrapper(node, props2);
+          updateNamedCousins(node, props2);
         }
         __name(restoreControlledState, "restoreControlledState");
-        function updateNamedCousins(rootNode, props) {
-          var name = props.name;
-          if (props.type === "radio" && name != null) {
+        function updateNamedCousins(rootNode, props2) {
+          var name = props2.name;
+          if (props2.type === "radio" && name != null) {
             var queryRoot = rootNode;
             while (queryRoot.parentNode) {
               queryRoot = queryRoot.parentNode;
@@ -4188,11 +4194,11 @@ var require_react_dom_development = __commonJS({
         var didWarnSelectedSetOnOption = false;
         var didWarnInvalidChild = false;
         var didWarnInvalidInnerHTML = false;
-        function validateProps(element, props) {
+        function validateProps(element, props2) {
           {
-            if (props.value == null) {
-              if (typeof props.children === "object" && props.children !== null) {
-                React2.Children.forEach(props.children, function(child) {
+            if (props2.value == null) {
+              if (typeof props2.children === "object" && props2.children !== null) {
+                React2.Children.forEach(props2.children, function(child) {
                   if (child == null) {
                     return;
                   }
@@ -4204,23 +4210,23 @@ var require_react_dom_development = __commonJS({
                     error("Cannot infer the option value of complex children. Pass a `value` prop or use a plain string as children to <option>.");
                   }
                 });
-              } else if (props.dangerouslySetInnerHTML != null) {
+              } else if (props2.dangerouslySetInnerHTML != null) {
                 if (!didWarnInvalidInnerHTML) {
                   didWarnInvalidInnerHTML = true;
                   error("Pass a `value` prop if you set dangerouslyInnerHTML so React knows which value should be selected.");
                 }
               }
             }
-            if (props.selected != null && !didWarnSelectedSetOnOption) {
+            if (props2.selected != null && !didWarnSelectedSetOnOption) {
               error("Use the `defaultValue` or `value` props on <select> instead of setting `selected` on <option>.");
               didWarnSelectedSetOnOption = true;
             }
           }
         }
         __name(validateProps, "validateProps");
-        function postMountWrapper$1(element, props) {
-          if (props.value != null) {
-            element.setAttribute("value", toString(getToStringValue(props.value)));
+        function postMountWrapper$1(element, props2) {
+          if (props2.value != null) {
+            element.setAttribute("value", toString(getToStringValue(props2.value)));
           }
         }
         __name(postMountWrapper$1, "postMountWrapper$1");
@@ -4242,18 +4248,18 @@ var require_react_dom_development = __commonJS({
         }
         __name(getDeclarationErrorAddendum, "getDeclarationErrorAddendum");
         var valuePropNames = ["value", "defaultValue"];
-        function checkSelectPropTypes(props) {
+        function checkSelectPropTypes(props2) {
           {
-            checkControlledValueProps("select", props);
+            checkControlledValueProps("select", props2);
             for (var i = 0; i < valuePropNames.length; i++) {
               var propName = valuePropNames[i];
-              if (props[propName] == null) {
+              if (props2[propName] == null) {
                 continue;
               }
-              var propNameIsArray = isArray(props[propName]);
-              if (props.multiple && !propNameIsArray) {
+              var propNameIsArray = isArray(props2[propName]);
+              if (props2.multiple && !propNameIsArray) {
                 error("The `%s` prop supplied to <select> must be an array if `multiple` is true.%s", propName, getDeclarationErrorAddendum());
-              } else if (!props.multiple && propNameIsArray) {
+              } else if (!props2.multiple && propNameIsArray) {
                 error("The `%s` prop supplied to <select> must be a scalar value if `multiple` is false.%s", propName, getDeclarationErrorAddendum());
               }
             }
@@ -4298,70 +4304,70 @@ var require_react_dom_development = __commonJS({
           }
         }
         __name(updateOptions, "updateOptions");
-        function getHostProps$1(element, props) {
-          return assign({}, props, {
+        function getHostProps$1(element, props2) {
+          return assign({}, props2, {
             value: void 0
           });
         }
         __name(getHostProps$1, "getHostProps$1");
-        function initWrapperState$1(element, props) {
+        function initWrapperState$1(element, props2) {
           var node = element;
           {
-            checkSelectPropTypes(props);
+            checkSelectPropTypes(props2);
           }
           node._wrapperState = {
-            wasMultiple: !!props.multiple
+            wasMultiple: !!props2.multiple
           };
           {
-            if (props.value !== void 0 && props.defaultValue !== void 0 && !didWarnValueDefaultValue$1) {
+            if (props2.value !== void 0 && props2.defaultValue !== void 0 && !didWarnValueDefaultValue$1) {
               error("Select elements must be either controlled or uncontrolled (specify either the value prop, or the defaultValue prop, but not both). Decide between using a controlled or uncontrolled select element and remove one of these props. More info: https://reactjs.org/link/controlled-components");
               didWarnValueDefaultValue$1 = true;
             }
           }
         }
         __name(initWrapperState$1, "initWrapperState$1");
-        function postMountWrapper$2(element, props) {
+        function postMountWrapper$2(element, props2) {
           var node = element;
-          node.multiple = !!props.multiple;
-          var value = props.value;
+          node.multiple = !!props2.multiple;
+          var value = props2.value;
           if (value != null) {
-            updateOptions(node, !!props.multiple, value, false);
-          } else if (props.defaultValue != null) {
-            updateOptions(node, !!props.multiple, props.defaultValue, true);
+            updateOptions(node, !!props2.multiple, value, false);
+          } else if (props2.defaultValue != null) {
+            updateOptions(node, !!props2.multiple, props2.defaultValue, true);
           }
         }
         __name(postMountWrapper$2, "postMountWrapper$2");
-        function postUpdateWrapper(element, props) {
+        function postUpdateWrapper(element, props2) {
           var node = element;
           var wasMultiple = node._wrapperState.wasMultiple;
-          node._wrapperState.wasMultiple = !!props.multiple;
-          var value = props.value;
+          node._wrapperState.wasMultiple = !!props2.multiple;
+          var value = props2.value;
           if (value != null) {
-            updateOptions(node, !!props.multiple, value, false);
-          } else if (wasMultiple !== !!props.multiple) {
-            if (props.defaultValue != null) {
-              updateOptions(node, !!props.multiple, props.defaultValue, true);
+            updateOptions(node, !!props2.multiple, value, false);
+          } else if (wasMultiple !== !!props2.multiple) {
+            if (props2.defaultValue != null) {
+              updateOptions(node, !!props2.multiple, props2.defaultValue, true);
             } else {
-              updateOptions(node, !!props.multiple, props.multiple ? [] : "", false);
+              updateOptions(node, !!props2.multiple, props2.multiple ? [] : "", false);
             }
           }
         }
         __name(postUpdateWrapper, "postUpdateWrapper");
-        function restoreControlledState$1(element, props) {
+        function restoreControlledState$1(element, props2) {
           var node = element;
-          var value = props.value;
+          var value = props2.value;
           if (value != null) {
-            updateOptions(node, !!props.multiple, value, false);
+            updateOptions(node, !!props2.multiple, value, false);
           }
         }
         __name(restoreControlledState$1, "restoreControlledState$1");
         var didWarnValDefaultVal = false;
-        function getHostProps$2(element, props) {
+        function getHostProps$2(element, props2) {
           var node = element;
-          if (props.dangerouslySetInnerHTML != null) {
+          if (props2.dangerouslySetInnerHTML != null) {
             throw new Error("`dangerouslySetInnerHTML` does not make sense on <textarea>.");
           }
-          var hostProps = assign({}, props, {
+          var hostProps = assign({}, props2, {
             value: void 0,
             defaultValue: void 0,
             children: toString(node._wrapperState.initialValue)
@@ -4369,18 +4375,18 @@ var require_react_dom_development = __commonJS({
           return hostProps;
         }
         __name(getHostProps$2, "getHostProps$2");
-        function initWrapperState$2(element, props) {
+        function initWrapperState$2(element, props2) {
           var node = element;
           {
-            checkControlledValueProps("textarea", props);
-            if (props.value !== void 0 && props.defaultValue !== void 0 && !didWarnValDefaultVal) {
+            checkControlledValueProps("textarea", props2);
+            if (props2.value !== void 0 && props2.defaultValue !== void 0 && !didWarnValDefaultVal) {
               error("%s contains a textarea with both value and defaultValue props. Textarea elements must be either controlled or uncontrolled (specify either the value prop, or the defaultValue prop, but not both). Decide between using a controlled or uncontrolled textarea and remove one of these props. More info: https://reactjs.org/link/controlled-components", getCurrentFiberOwnerNameInDevOrNull() || "A component");
               didWarnValDefaultVal = true;
             }
           }
-          var initialValue = props.value;
+          var initialValue = props2.value;
           if (initialValue == null) {
-            var children = props.children, defaultValue = props.defaultValue;
+            var children = props2.children, defaultValue = props2.defaultValue;
             if (children != null) {
               {
                 error("Use the `defaultValue` or `value` props instead of setting children on <textarea>.");
@@ -4408,16 +4414,16 @@ var require_react_dom_development = __commonJS({
           };
         }
         __name(initWrapperState$2, "initWrapperState$2");
-        function updateWrapper$1(element, props) {
+        function updateWrapper$1(element, props2) {
           var node = element;
-          var value = getToStringValue(props.value);
-          var defaultValue = getToStringValue(props.defaultValue);
+          var value = getToStringValue(props2.value);
+          var defaultValue = getToStringValue(props2.defaultValue);
           if (value != null) {
             var newValue = toString(value);
             if (newValue !== node.value) {
               node.value = newValue;
             }
-            if (props.defaultValue == null && node.defaultValue !== newValue) {
+            if (props2.defaultValue == null && node.defaultValue !== newValue) {
               node.defaultValue = newValue;
             }
           }
@@ -4426,7 +4432,7 @@ var require_react_dom_development = __commonJS({
           }
         }
         __name(updateWrapper$1, "updateWrapper$1");
-        function postMountWrapper$3(element, props) {
+        function postMountWrapper$3(element, props2) {
           var node = element;
           var textContent = node.textContent;
           if (textContent === node._wrapperState.initialValue) {
@@ -4436,8 +4442,8 @@ var require_react_dom_development = __commonJS({
           }
         }
         __name(postMountWrapper$3, "postMountWrapper$3");
-        function restoreControlledState$2(element, props) {
-          updateWrapper$1(element, props);
+        function restoreControlledState$2(element, props2) {
+          updateWrapper$1(element, props2);
         }
         __name(restoreControlledState$2, "restoreControlledState$2");
         var HTML_NAMESPACE = "http://www.w3.org/1999/xhtml";
@@ -4813,36 +4819,36 @@ var require_react_dom_development = __commonJS({
           menuitem: true
         }, omittedCloseTags);
         var HTML = "__html";
-        function assertValidProps(tag, props) {
-          if (!props) {
+        function assertValidProps(tag, props2) {
+          if (!props2) {
             return;
           }
           if (voidElementTags[tag]) {
-            if (props.children != null || props.dangerouslySetInnerHTML != null) {
+            if (props2.children != null || props2.dangerouslySetInnerHTML != null) {
               throw new Error(tag + " is a void element tag and must neither have `children` nor use `dangerouslySetInnerHTML`.");
             }
           }
-          if (props.dangerouslySetInnerHTML != null) {
-            if (props.children != null) {
+          if (props2.dangerouslySetInnerHTML != null) {
+            if (props2.children != null) {
               throw new Error("Can only set one of `children` or `props.dangerouslySetInnerHTML`.");
             }
-            if (typeof props.dangerouslySetInnerHTML !== "object" || !(HTML in props.dangerouslySetInnerHTML)) {
+            if (typeof props2.dangerouslySetInnerHTML !== "object" || !(HTML in props2.dangerouslySetInnerHTML)) {
               throw new Error("`props.dangerouslySetInnerHTML` must be in the form `{__html: ...}`. Please visit https://reactjs.org/link/dangerously-set-inner-html for more information.");
             }
           }
           {
-            if (!props.suppressContentEditableWarning && props.contentEditable && props.children != null) {
+            if (!props2.suppressContentEditableWarning && props2.contentEditable && props2.children != null) {
               error("A component is `contentEditable` and contains `children` managed by React. It is now your responsibility to guarantee that none of those nodes are unexpectedly modified or duplicated. This is probably not intentional.");
             }
           }
-          if (props.style != null && typeof props.style !== "object") {
+          if (props2.style != null && typeof props2.style !== "object") {
             throw new Error("The `style` prop expects a mapping from style properties to values, not a string. For example, style={{marginRight: spacing + 'em'}} when using JSX.");
           }
         }
         __name(assertValidProps, "assertValidProps");
-        function isCustomComponent(tagName, props) {
+        function isCustomComponent(tagName, props2) {
           if (tagName.indexOf("-") === -1) {
-            return typeof props.is === "string";
+            return typeof props2.is === "string";
           }
           switch (tagName) {
             case "annotation-xml":
@@ -5446,10 +5452,10 @@ var require_react_dom_development = __commonJS({
           return true;
         }
         __name(validateProperty, "validateProperty");
-        function warnInvalidARIAProps(type, props) {
+        function warnInvalidARIAProps(type, props2) {
           {
             var invalidProps = [];
-            for (var key in props) {
+            for (var key in props2) {
               var isValid = validateProperty(type, key);
               if (!isValid) {
                 invalidProps.push(key);
@@ -5466,22 +5472,22 @@ var require_react_dom_development = __commonJS({
           }
         }
         __name(warnInvalidARIAProps, "warnInvalidARIAProps");
-        function validateProperties(type, props) {
-          if (isCustomComponent(type, props)) {
+        function validateProperties(type, props2) {
+          if (isCustomComponent(type, props2)) {
             return;
           }
-          warnInvalidARIAProps(type, props);
+          warnInvalidARIAProps(type, props2);
         }
         __name(validateProperties, "validateProperties");
         var didWarnValueNull = false;
-        function validateProperties$1(type, props) {
+        function validateProperties$1(type, props2) {
           {
             if (type !== "input" && type !== "textarea" && type !== "select") {
               return;
             }
-            if (props != null && props.value === null && !didWarnValueNull) {
+            if (props2 != null && props2.value === null && !didWarnValueNull) {
               didWarnValueNull = true;
-              if (type === "select" && props.multiple) {
+              if (type === "select" && props2.multiple) {
                 error("`value` prop on `%s` should not be null. Consider using an empty array when `multiple` is set to `true` to clear the component or `undefined` for uncontrolled components.", type);
               } else {
                 error("`value` prop on `%s` should not be null. Consider using an empty string to clear the component or `undefined` for uncontrolled components.", type);
@@ -5592,11 +5598,11 @@ var require_react_dom_development = __commonJS({
             return true;
           }, "validateProperty$1");
         }
-        var warnUnknownProperties = /* @__PURE__ */ __name(function(type, props, eventRegistry) {
+        var warnUnknownProperties = /* @__PURE__ */ __name(function(type, props2, eventRegistry) {
           {
             var unknownProps = [];
-            for (var key in props) {
-              var isValid = validateProperty$1(type, key, props[key], eventRegistry);
+            for (var key in props2) {
+              var isValid = validateProperty$1(type, key, props2[key], eventRegistry);
               if (!isValid) {
                 unknownProps.push(key);
               }
@@ -5611,11 +5617,11 @@ var require_react_dom_development = __commonJS({
             }
           }
         }, "warnUnknownProperties");
-        function validateProperties$2(type, props, eventRegistry) {
-          if (isCustomComponent(type, props)) {
+        function validateProperties$2(type, props2, eventRegistry) {
+          if (isCustomComponent(type, props2)) {
             return;
           }
-          warnUnknownProperties(type, props, eventRegistry);
+          warnUnknownProperties(type, props2, eventRegistry);
         }
         __name(validateProperties$2, "validateProperties$2");
         var IS_EVENT_HANDLE_NON_MANAGED_NODE = 1;
@@ -5743,7 +5749,7 @@ var require_react_dom_development = __commonJS({
           return tag === "button" || tag === "input" || tag === "select" || tag === "textarea";
         }
         __name(isInteractive, "isInteractive");
-        function shouldPreventMouseEvent(name, type, props) {
+        function shouldPreventMouseEvent(name, type, props2) {
           switch (name) {
             case "onClick":
             case "onClickCapture":
@@ -5756,7 +5762,7 @@ var require_react_dom_development = __commonJS({
             case "onMouseUp":
             case "onMouseUpCapture":
             case "onMouseEnter":
-              return !!(props.disabled && isInteractive(type));
+              return !!(props2.disabled && isInteractive(type));
             default:
               return false;
           }
@@ -5767,12 +5773,12 @@ var require_react_dom_development = __commonJS({
           if (stateNode === null) {
             return null;
           }
-          var props = getFiberCurrentPropsFromNode(stateNode);
-          if (props === null) {
+          var props2 = getFiberCurrentPropsFromNode(stateNode);
+          if (props2 === null) {
             return null;
           }
-          var listener = props[registrationName];
-          if (shouldPreventMouseEvent(registrationName, inst.type, props)) {
+          var listener = props2[registrationName];
+          if (shouldPreventMouseEvent(registrationName, inst.type, props2)) {
             return null;
           }
           if (listener && typeof listener !== "function") {
@@ -9726,10 +9732,10 @@ var require_react_dom_development = __commonJS({
             // @see https://electronjs.org/docs/api/webview-tag
             webview: true
           };
-          validatePropertiesInDevelopment = /* @__PURE__ */ __name(function(type, props) {
-            validateProperties(type, props);
-            validateProperties$1(type, props);
-            validateProperties$2(type, props, {
+          validatePropertiesInDevelopment = /* @__PURE__ */ __name(function(type, props2) {
+            validateProperties(type, props2);
+            validateProperties$1(type, props2);
+            validateProperties$2(type, props2, {
               registrationNameDependencies,
               possibleRegistrationNames
             });
@@ -9873,7 +9879,7 @@ var require_react_dom_development = __commonJS({
           }
         }
         __name(updateDOMProperties, "updateDOMProperties");
-        function createElement(type, props, rootContainerElement, parentNamespace) {
+        function createElement(type, props2, rootContainerElement, parentNamespace) {
           var isCustomComponentTag;
           var ownerDocument = getOwnerDocumentFromRootContainer(rootContainerElement);
           var domElement;
@@ -9883,7 +9889,7 @@ var require_react_dom_development = __commonJS({
           }
           if (namespaceURI === HTML_NAMESPACE) {
             {
-              isCustomComponentTag = isCustomComponent(type, props);
+              isCustomComponentTag = isCustomComponent(type, props2);
               if (!isCustomComponentTag && type !== type.toLowerCase()) {
                 error("<%s /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.", type);
               }
@@ -9893,18 +9899,18 @@ var require_react_dom_development = __commonJS({
               div.innerHTML = "<script><\/script>";
               var firstChild = div.firstChild;
               domElement = div.removeChild(firstChild);
-            } else if (typeof props.is === "string") {
+            } else if (typeof props2.is === "string") {
               domElement = ownerDocument.createElement(type, {
-                is: props.is
+                is: props2.is
               });
             } else {
               domElement = ownerDocument.createElement(type);
               if (type === "select") {
                 var node = domElement;
-                if (props.multiple) {
+                if (props2.multiple) {
                   node.multiple = true;
-                } else if (props.size) {
-                  node.size = props.size;
+                } else if (props2.size) {
+                  node.size = props2.size;
                 }
               }
             }
@@ -9931,65 +9937,65 @@ var require_react_dom_development = __commonJS({
           {
             validatePropertiesInDevelopment(tag, rawProps);
           }
-          var props;
+          var props2;
           switch (tag) {
             case "dialog":
               listenToNonDelegatedEvent("cancel", domElement);
               listenToNonDelegatedEvent("close", domElement);
-              props = rawProps;
+              props2 = rawProps;
               break;
             case "iframe":
             case "object":
             case "embed":
               listenToNonDelegatedEvent("load", domElement);
-              props = rawProps;
+              props2 = rawProps;
               break;
             case "video":
             case "audio":
               for (var i = 0; i < mediaEventTypes.length; i++) {
                 listenToNonDelegatedEvent(mediaEventTypes[i], domElement);
               }
-              props = rawProps;
+              props2 = rawProps;
               break;
             case "source":
               listenToNonDelegatedEvent("error", domElement);
-              props = rawProps;
+              props2 = rawProps;
               break;
             case "img":
             case "image":
             case "link":
               listenToNonDelegatedEvent("error", domElement);
               listenToNonDelegatedEvent("load", domElement);
-              props = rawProps;
+              props2 = rawProps;
               break;
             case "details":
               listenToNonDelegatedEvent("toggle", domElement);
-              props = rawProps;
+              props2 = rawProps;
               break;
             case "input":
               initWrapperState(domElement, rawProps);
-              props = getHostProps(domElement, rawProps);
+              props2 = getHostProps(domElement, rawProps);
               listenToNonDelegatedEvent("invalid", domElement);
               break;
             case "option":
               validateProps(domElement, rawProps);
-              props = rawProps;
+              props2 = rawProps;
               break;
             case "select":
               initWrapperState$1(domElement, rawProps);
-              props = getHostProps$1(domElement, rawProps);
+              props2 = getHostProps$1(domElement, rawProps);
               listenToNonDelegatedEvent("invalid", domElement);
               break;
             case "textarea":
               initWrapperState$2(domElement, rawProps);
-              props = getHostProps$2(domElement, rawProps);
+              props2 = getHostProps$2(domElement, rawProps);
               listenToNonDelegatedEvent("invalid", domElement);
               break;
             default:
-              props = rawProps;
+              props2 = rawProps;
           }
-          assertValidProps(tag, props);
-          setInitialDOMProperties(tag, domElement, rootContainerElement, props, isCustomComponentTag);
+          assertValidProps(tag, props2);
+          setInitialDOMProperties(tag, domElement, rootContainerElement, props2, isCustomComponentTag);
           switch (tag) {
             case "input":
               track(domElement);
@@ -10006,7 +10012,7 @@ var require_react_dom_development = __commonJS({
               postMountWrapper$2(domElement, rawProps);
               break;
             default:
-              if (typeof props.onClick === "function") {
+              if (typeof props2.onClick === "function") {
                 trapClickOnNonInteractiveElement(domElement);
               }
               break;
@@ -10402,7 +10408,7 @@ var require_react_dom_development = __commonJS({
           }
         }
         __name(warnForDeletedHydratableText, "warnForDeletedHydratableText");
-        function warnForInsertedHydratedElement(parentNode, tag, props) {
+        function warnForInsertedHydratedElement(parentNode, tag, props2) {
           {
             if (didWarnInvalidHydration) {
               return;
@@ -10425,16 +10431,16 @@ var require_react_dom_development = __commonJS({
           }
         }
         __name(warnForInsertedHydratedText, "warnForInsertedHydratedText");
-        function restoreControlledState$3(domElement, tag, props) {
+        function restoreControlledState$3(domElement, tag, props2) {
           switch (tag) {
             case "input":
-              restoreControlledState(domElement, props);
+              restoreControlledState(domElement, props2);
               return;
             case "textarea":
-              restoreControlledState$2(domElement, props);
+              restoreControlledState$2(domElement, props2);
               return;
             case "select":
-              restoreControlledState$1(domElement, props);
+              restoreControlledState$1(domElement, props2);
               return;
           }
         }
@@ -10740,21 +10746,21 @@ var require_react_dom_development = __commonJS({
           selectionInformation = null;
         }
         __name(resetAfterCommit, "resetAfterCommit");
-        function createInstance(type, props, rootContainerInstance, hostContext, internalInstanceHandle) {
+        function createInstance(type, props2, rootContainerInstance, hostContext, internalInstanceHandle) {
           var parentNamespace;
           {
             var hostContextDev = hostContext;
             validateDOMNesting(type, null, hostContextDev.ancestorInfo);
-            if (typeof props.children === "string" || typeof props.children === "number") {
-              var string = "" + props.children;
+            if (typeof props2.children === "string" || typeof props2.children === "number") {
+              var string = "" + props2.children;
               var ownAncestorInfo = updatedAncestorInfo(hostContextDev.ancestorInfo, type);
               validateDOMNesting(null, string, ownAncestorInfo);
             }
             parentNamespace = hostContextDev.namespace;
           }
-          var domElement = createElement(type, props, rootContainerInstance, parentNamespace);
+          var domElement = createElement(type, props2, rootContainerInstance, parentNamespace);
           precacheFiberNode(internalInstanceHandle, domElement);
-          updateFiberProps(domElement, props);
+          updateFiberProps(domElement, props2);
           return domElement;
         }
         __name(createInstance, "createInstance");
@@ -10762,14 +10768,14 @@ var require_react_dom_development = __commonJS({
           parentInstance.appendChild(child);
         }
         __name(appendInitialChild, "appendInitialChild");
-        function finalizeInitialChildren(domElement, type, props, rootContainerInstance, hostContext) {
-          setInitialProperties(domElement, type, props, rootContainerInstance);
+        function finalizeInitialChildren(domElement, type, props2, rootContainerInstance, hostContext) {
+          setInitialProperties(domElement, type, props2, rootContainerInstance);
           switch (type) {
             case "button":
             case "input":
             case "select":
             case "textarea":
-              return !!props.autoFocus;
+              return !!props2.autoFocus;
             case "img":
               return true;
             default:
@@ -10789,8 +10795,8 @@ var require_react_dom_development = __commonJS({
           return diffProperties(domElement, type, oldProps, newProps);
         }
         __name(prepareUpdate, "prepareUpdate");
-        function shouldSetTextContent(type, props) {
-          return type === "textarea" || type === "noscript" || typeof props.children === "string" || typeof props.children === "number" || typeof props.dangerouslySetInnerHTML === "object" && props.dangerouslySetInnerHTML !== null && props.dangerouslySetInnerHTML.__html != null;
+        function shouldSetTextContent(type, props2) {
+          return type === "textarea" || type === "noscript" || typeof props2.children === "string" || typeof props2.children === "number" || typeof props2.dangerouslySetInnerHTML === "object" && props2.dangerouslySetInnerHTML !== null && props2.dangerouslySetInnerHTML.__html != null;
         }
         __name(shouldSetTextContent, "shouldSetTextContent");
         function createTextInstance(text, rootContainerInstance, hostContext, internalInstanceHandle) {
@@ -10947,9 +10953,9 @@ var require_react_dom_development = __commonJS({
           textInstance.nodeValue = "";
         }
         __name(hideTextInstance, "hideTextInstance");
-        function unhideInstance(instance, props) {
+        function unhideInstance(instance, props2) {
           instance = instance;
-          var styleProp = props[STYLE$1];
+          var styleProp = props2[STYLE$1];
           var display = styleProp !== void 0 && styleProp !== null && styleProp.hasOwnProperty("display") ? styleProp.display : null;
           instance.style.display = dangerousStyleValue("display", display);
         }
@@ -10968,7 +10974,7 @@ var require_react_dom_development = __commonJS({
           }
         }
         __name(clearContainer, "clearContainer");
-        function canHydrateInstance(instance, type, props) {
+        function canHydrateInstance(instance, type, props2) {
           if (instance.nodeType !== ELEMENT_NODE || type.toLowerCase() !== instance.nodeName.toLowerCase()) {
             return null;
           }
@@ -11055,16 +11061,16 @@ var require_react_dom_development = __commonJS({
           return getNextHydratable(parentInstance.nextSibling);
         }
         __name(getFirstHydratableChildWithinSuspenseInstance, "getFirstHydratableChildWithinSuspenseInstance");
-        function hydrateInstance(instance, type, props, rootContainerInstance, hostContext, internalInstanceHandle, shouldWarnDev) {
+        function hydrateInstance(instance, type, props2, rootContainerInstance, hostContext, internalInstanceHandle, shouldWarnDev) {
           precacheFiberNode(internalInstanceHandle, instance);
-          updateFiberProps(instance, props);
+          updateFiberProps(instance, props2);
           var parentNamespace;
           {
             var hostContextDev = hostContext;
             parentNamespace = hostContextDev.namespace;
           }
           var isConcurrentMode = (internalInstanceHandle.mode & ConcurrentMode) !== NoMode;
-          return diffHydratedProperties(instance, type, props, parentNamespace, rootContainerInstance, isConcurrentMode, shouldWarnDev);
+          return diffHydratedProperties(instance, type, props2, parentNamespace, rootContainerInstance, isConcurrentMode, shouldWarnDev);
         }
         __name(hydrateInstance, "hydrateInstance");
         function hydrateTextInstance(textInstance, text, internalInstanceHandle, shouldWarnDev) {
@@ -11184,7 +11190,7 @@ var require_react_dom_development = __commonJS({
           }
         }
         __name(didNotHydrateInstance, "didNotHydrateInstance");
-        function didNotFindHydratableInstanceWithinContainer(parentContainer, type, props) {
+        function didNotFindHydratableInstanceWithinContainer(parentContainer, type, props2) {
           {
             warnForInsertedHydratedElement(parentContainer, type);
           }
@@ -11196,7 +11202,7 @@ var require_react_dom_development = __commonJS({
           }
         }
         __name(didNotFindHydratableTextInstanceWithinContainer, "didNotFindHydratableTextInstanceWithinContainer");
-        function didNotFindHydratableInstanceWithinSuspenseInstance(parentInstance, type, props) {
+        function didNotFindHydratableInstanceWithinSuspenseInstance(parentInstance, type, props2) {
           {
             var parentNode = parentInstance.parentNode;
             if (parentNode !== null)
@@ -11212,7 +11218,7 @@ var require_react_dom_development = __commonJS({
           }
         }
         __name(didNotFindHydratableTextInstanceWithinSuspenseInstance, "didNotFindHydratableTextInstanceWithinSuspenseInstance");
-        function didNotFindHydratableInstance(parentType, parentProps, parentInstance, type, props, isConcurrentMode) {
+        function didNotFindHydratableInstance(parentType, parentProps, parentInstance, type, props2, isConcurrentMode) {
           {
             if (isConcurrentMode || parentProps[SUPPRESS_HYDRATION_WARNING$1] !== true) {
               warnForInsertedHydratedElement(parentInstance, type);
@@ -11320,8 +11326,8 @@ var require_react_dom_development = __commonJS({
           return node[internalPropsKey] || null;
         }
         __name(getFiberCurrentPropsFromNode, "getFiberCurrentPropsFromNode");
-        function updateFiberProps(node, props) {
-          node[internalPropsKey] = props;
+        function updateFiberProps(node, props2) {
+          node[internalPropsKey] = props2;
         }
         __name(updateFiberProps, "updateFiberProps");
         function getEventListenerSet(node) {
@@ -11882,7 +11888,7 @@ var require_react_dom_development = __commonJS({
                 switch (fiber.tag) {
                   case HostComponent:
                     var type = fiber.type;
-                    var props = fiber.pendingProps;
+                    var props2 = fiber.pendingProps;
                     didNotFindHydratableInstanceWithinContainer(parentContainer, type);
                     break;
                   case HostText:
@@ -11960,7 +11966,7 @@ var require_react_dom_development = __commonJS({
           switch (fiber.tag) {
             case HostComponent: {
               var type = fiber.type;
-              var props = fiber.pendingProps;
+              var props2 = fiber.pendingProps;
               var instance = canHydrateInstance(nextInstance, type);
               if (instance !== null) {
                 fiber.stateNode = instance;
@@ -12388,14 +12394,14 @@ var require_react_dom_development = __commonJS({
         }
         function resolveDefaultProps(Component, baseProps) {
           if (Component && Component.defaultProps) {
-            var props = assign({}, baseProps);
+            var props2 = assign({}, baseProps);
             var defaultProps = Component.defaultProps;
             for (var propName in defaultProps) {
-              if (props[propName] === void 0) {
-                props[propName] = defaultProps[propName];
+              if (props2[propName] === void 0) {
+                props2[propName] = defaultProps[propName];
               }
             }
-            return props;
+            return props2;
           }
           return baseProps;
         }
@@ -12937,7 +12943,7 @@ var require_react_dom_development = __commonJS({
           return prevState;
         }
         __name(getStateFromUpdate, "getStateFromUpdate");
-        function processUpdateQueue(workInProgress2, props, instance, renderLanes2) {
+        function processUpdateQueue(workInProgress2, props2, instance, renderLanes2) {
           var queue = workInProgress2.updateQueue;
           hasForceUpdate = false;
           {
@@ -13012,7 +13018,7 @@ var require_react_dom_development = __commonJS({
                   };
                   newLastBaseUpdate = newLastBaseUpdate.next = _clone;
                 }
-                newState = getStateFromUpdate(workInProgress2, queue, update, newState, props, instance);
+                newState = getStateFromUpdate(workInProgress2, queue, update, newState, props2, instance);
                 var callback = update.callback;
                 if (callback !== null && // If the update was already committed, we should not queue its
                 // callback again.
@@ -13349,7 +13355,7 @@ var require_react_dom_development = __commonJS({
           }
         }
         __name(adoptClassInstance, "adoptClassInstance");
-        function constructClassInstance(workInProgress2, ctor, props) {
+        function constructClassInstance(workInProgress2, ctor, props2) {
           var isLegacyContextConsumer = false;
           var unmaskedContext = emptyContextObject;
           var context = emptyContextObject;
@@ -13386,12 +13392,12 @@ var require_react_dom_development = __commonJS({
             isLegacyContextConsumer = contextTypes !== null && contextTypes !== void 0;
             context = isLegacyContextConsumer ? getMaskedContext(workInProgress2, unmaskedContext) : emptyContextObject;
           }
-          var instance = new ctor(props, context);
+          var instance = new ctor(props2, context);
           {
             if (workInProgress2.mode & StrictLegacyMode) {
               setIsStrictModeForDevtools(true);
               try {
-                instance = new ctor(props, context);
+                instance = new ctor(props2, context);
               } finally {
                 setIsStrictModeForDevtools(false);
               }
@@ -14585,7 +14591,7 @@ var require_react_dom_development = __commonJS({
             }
             return false;
           }
-          var props = workInProgress2.memoizedProps;
+          var props2 = workInProgress2.memoizedProps;
           {
             return true;
           }
@@ -14774,7 +14780,7 @@ var require_react_dom_development = __commonJS({
           return true;
         }
         __name(areHookInputsEqual, "areHookInputsEqual");
-        function renderWithHooks(current2, workInProgress2, Component, props, secondArg, nextRenderLanes) {
+        function renderWithHooks(current2, workInProgress2, Component, props2, secondArg, nextRenderLanes) {
           renderLanes = nextRenderLanes;
           currentlyRenderingFiber$1 = workInProgress2;
           {
@@ -14794,7 +14800,7 @@ var require_react_dom_development = __commonJS({
               ReactCurrentDispatcher$1.current = HooksDispatcherOnMountInDEV;
             }
           }
-          var children = Component(props, secondArg);
+          var children = Component(props2, secondArg);
           if (didScheduleRenderPhaseUpdateDuringThisPass) {
             var numberOfReRenders = 0;
             do {
@@ -14814,7 +14820,7 @@ var require_react_dom_development = __commonJS({
                 hookTypesUpdateIndexDev = -1;
               }
               ReactCurrentDispatcher$1.current = HooksDispatcherOnRerenderInDEV;
-              children = Component(props, secondArg);
+              children = Component(props2, secondArg);
             } while (didScheduleRenderPhaseUpdateDuringThisPass);
           }
           ReactCurrentDispatcher$1.current = ContextOnlyDispatcher;
@@ -17540,14 +17546,14 @@ var require_react_dom_development = __commonJS({
         __name(updateHostText, "updateHostText");
         function mountLazyComponent(_current, workInProgress2, elementType, renderLanes2) {
           resetSuspendedCurrentOnMountInLegacyMode(_current, workInProgress2);
-          var props = workInProgress2.pendingProps;
+          var props2 = workInProgress2.pendingProps;
           var lazyComponent = elementType;
           var payload = lazyComponent._payload;
           var init = lazyComponent._init;
           var Component = init(payload);
           workInProgress2.type = Component;
           var resolvedTag = workInProgress2.tag = resolveLazyComponentTag(Component);
-          var resolvedProps = resolveDefaultProps(Component, props);
+          var resolvedProps = resolveDefaultProps(Component, props2);
           var child;
           switch (resolvedTag) {
             case FunctionComponent: {
@@ -17625,7 +17631,7 @@ var require_react_dom_development = __commonJS({
         __name(mountIncompleteClassComponent, "mountIncompleteClassComponent");
         function mountIndeterminateComponent(_current, workInProgress2, Component, renderLanes2) {
           resetSuspendedCurrentOnMountInLegacyMode(_current, workInProgress2);
-          var props = workInProgress2.pendingProps;
+          var props2 = workInProgress2.pendingProps;
           var context;
           {
             var unmaskedContext = getUnmaskedContext(workInProgress2, Component, false);
@@ -17650,7 +17656,7 @@ var require_react_dom_development = __commonJS({
             }
             setIsRendering(true);
             ReactCurrentOwner$1.current = workInProgress2;
-            value = renderWithHooks(null, workInProgress2, Component, props, context, renderLanes2);
+            value = renderWithHooks(null, workInProgress2, Component, props2, context, renderLanes2);
             hasId = checkDidRenderIdHook();
             setIsRendering(false);
           }
@@ -17692,7 +17698,7 @@ var require_react_dom_development = __commonJS({
             workInProgress2.memoizedState = value.state !== null && value.state !== void 0 ? value.state : null;
             initializeUpdateQueue(workInProgress2);
             adoptClassInstance(workInProgress2, value);
-            mountClassInstance(workInProgress2, Component, props, renderLanes2);
+            mountClassInstance(workInProgress2, Component, props2, renderLanes2);
             return finishClassComponent(null, workInProgress2, Component, true, hasContext, renderLanes2);
           } else {
             workInProgress2.tag = FunctionComponent;
@@ -17700,7 +17706,7 @@ var require_react_dom_development = __commonJS({
               if (workInProgress2.mode & StrictLegacyMode) {
                 setIsStrictModeForDevtools(true);
                 try {
-                  value = renderWithHooks(null, workInProgress2, Component, props, context, renderLanes2);
+                  value = renderWithHooks(null, workInProgress2, Component, props2, context, renderLanes2);
                   hasId = checkDidRenderIdHook();
                 } finally {
                   setIsStrictModeForDevtools(false);
@@ -19878,8 +19884,8 @@ var require_react_dom_development = __commonJS({
                 var _instance2 = finishedWork.stateNode;
                 if (current2 === null && finishedWork.flags & Update) {
                   var type = finishedWork.type;
-                  var props = finishedWork.memoizedProps;
-                  commitMount(_instance2, type, props);
+                  var props2 = finishedWork.memoizedProps;
+                  commitMount(_instance2, type, props2);
                 }
                 break;
               }
@@ -24537,13 +24543,13 @@ var require_react_dom_development = __commonJS({
 
 // viteApp/node_modules/react-dom/index.js
 var require_react_dom = __commonJS({
-  "viteApp/node_modules/react-dom/index.js"(exports, module2) {
+  "viteApp/node_modules/react-dom/index.js"(exports, module) {
     "use strict";
     if (false) {
       checkDCE();
-      module2.exports = null;
+      module.exports = null;
     } else {
-      module2.exports = require_react_dom_development();
+      module.exports = require_react_dom_development();
     }
   }
 });
@@ -24765,20 +24771,20 @@ var require_react_jsx_runtime_development = __commonJS({
               prevGroup = console.group;
               prevGroupCollapsed = console.groupCollapsed;
               prevGroupEnd = console.groupEnd;
-              var props = {
+              var props2 = {
                 configurable: true,
                 enumerable: true,
                 value: disabledLog,
                 writable: true
               };
               Object.defineProperties(console, {
-                info: props,
-                log: props,
-                warn: props,
-                error: props,
-                group: props,
-                groupCollapsed: props,
-                groupEnd: props
+                info: props2,
+                log: props2,
+                warn: props2,
+                error: props2,
+                group: props2,
+                groupCollapsed: props2,
+                groupEnd: props2
               });
             }
             disabledDepth++;
@@ -24789,31 +24795,31 @@ var require_react_jsx_runtime_development = __commonJS({
           {
             disabledDepth--;
             if (disabledDepth === 0) {
-              var props = {
+              var props2 = {
                 configurable: true,
                 enumerable: true,
                 writable: true
               };
               Object.defineProperties(console, {
-                log: assign({}, props, {
+                log: assign({}, props2, {
                   value: prevLog
                 }),
-                info: assign({}, props, {
+                info: assign({}, props2, {
                   value: prevInfo
                 }),
-                warn: assign({}, props, {
+                warn: assign({}, props2, {
                   value: prevWarn
                 }),
-                error: assign({}, props, {
+                error: assign({}, props2, {
                   value: prevError
                 }),
-                group: assign({}, props, {
+                group: assign({}, props2, {
                   value: prevGroup
                 }),
-                groupCollapsed: assign({}, props, {
+                groupCollapsed: assign({}, props2, {
                   value: prevGroupCollapsed
                 }),
-                groupEnd: assign({}, props, {
+                groupEnd: assign({}, props2, {
                   value: prevGroupEnd
                 })
               });
@@ -25132,7 +25138,7 @@ var require_react_jsx_runtime_development = __commonJS({
           }
         }
         __name(warnIfStringRefCannotBeAutoConverted, "warnIfStringRefCannotBeAutoConverted");
-        function defineKeyPropWarningGetter(props, displayName) {
+        function defineKeyPropWarningGetter(props2, displayName) {
           {
             var warnAboutAccessingKey = /* @__PURE__ */ __name(function() {
               if (!specialPropKeyWarningShown) {
@@ -25141,14 +25147,14 @@ var require_react_jsx_runtime_development = __commonJS({
               }
             }, "warnAboutAccessingKey");
             warnAboutAccessingKey.isReactWarning = true;
-            Object.defineProperty(props, "key", {
+            Object.defineProperty(props2, "key", {
               get: warnAboutAccessingKey,
               configurable: true
             });
           }
         }
         __name(defineKeyPropWarningGetter, "defineKeyPropWarningGetter");
-        function defineRefPropWarningGetter(props, displayName) {
+        function defineRefPropWarningGetter(props2, displayName) {
           {
             var warnAboutAccessingRef = /* @__PURE__ */ __name(function() {
               if (!specialPropRefWarningShown) {
@@ -25157,14 +25163,14 @@ var require_react_jsx_runtime_development = __commonJS({
               }
             }, "warnAboutAccessingRef");
             warnAboutAccessingRef.isReactWarning = true;
-            Object.defineProperty(props, "ref", {
+            Object.defineProperty(props2, "ref", {
               get: warnAboutAccessingRef,
               configurable: true
             });
           }
         }
         __name(defineRefPropWarningGetter, "defineRefPropWarningGetter");
-        var ReactElement = /* @__PURE__ */ __name(function(type, key, ref, self, source, owner, props) {
+        var ReactElement = /* @__PURE__ */ __name(function(type, key, ref, self, source, owner, props2) {
           var element = {
             // This tag allows us to uniquely identify this as a React Element
             $$typeof: REACT_ELEMENT_TYPE,
@@ -25172,7 +25178,7 @@ var require_react_jsx_runtime_development = __commonJS({
             type,
             key,
             ref,
-            props,
+            props: props2,
             // Record the component responsible for creating this element.
             _owner: owner
           };
@@ -25206,7 +25212,7 @@ var require_react_jsx_runtime_development = __commonJS({
         function jsxDEV(type, config, maybeKey, source, self) {
           {
             var propName;
-            var props = {};
+            var props2 = {};
             var key = null;
             var ref = null;
             if (maybeKey !== void 0) {
@@ -25227,27 +25233,27 @@ var require_react_jsx_runtime_development = __commonJS({
             }
             for (propName in config) {
               if (hasOwnProperty.call(config, propName) && !RESERVED_PROPS.hasOwnProperty(propName)) {
-                props[propName] = config[propName];
+                props2[propName] = config[propName];
               }
             }
             if (type && type.defaultProps) {
               var defaultProps = type.defaultProps;
               for (propName in defaultProps) {
-                if (props[propName] === void 0) {
-                  props[propName] = defaultProps[propName];
+                if (props2[propName] === void 0) {
+                  props2[propName] = defaultProps[propName];
                 }
               }
             }
             if (key || ref) {
               var displayName = typeof type === "function" ? type.displayName || type.name || "Unknown" : type;
               if (key) {
-                defineKeyPropWarningGetter(props, displayName);
+                defineKeyPropWarningGetter(props2, displayName);
               }
               if (ref) {
-                defineRefPropWarningGetter(props, displayName);
+                defineRefPropWarningGetter(props2, displayName);
               }
             }
-            return ReactElement(type, key, ref, self, source, ReactCurrentOwner.current, props);
+            return ReactElement(type, key, ref, self, source, ReactCurrentOwner.current, props2);
           }
         }
         __name(jsxDEV, "jsxDEV");
@@ -25416,7 +25422,7 @@ var require_react_jsx_runtime_development = __commonJS({
           }
         }
         __name(validateFragmentProps, "validateFragmentProps");
-        function jsxWithValidation(type, props, key, isStaticChildren, source, self) {
+        function jsxWithValidation(type, props2, key, isStaticChildren, source, self) {
           {
             var validType = isValidElementType(type);
             if (!validType) {
@@ -25443,12 +25449,12 @@ var require_react_jsx_runtime_development = __commonJS({
               }
               error("React.jsx: type is invalid -- expected a string (for built-in components) or a class/function (for composite components) but got: %s.%s", typeString, info);
             }
-            var element = jsxDEV(type, props, key, source, self);
+            var element = jsxDEV(type, props2, key, source, self);
             if (element == null) {
               return element;
             }
             if (validType) {
-              var children = props.children;
+              var children = props2.children;
               if (children !== void 0) {
                 if (isStaticChildren) {
                   if (isArray(children)) {
@@ -25475,22 +25481,22 @@ var require_react_jsx_runtime_development = __commonJS({
           }
         }
         __name(jsxWithValidation, "jsxWithValidation");
-        function jsxWithValidationStatic(type, props, key) {
+        function jsxWithValidationStatic(type, props2, key) {
           {
-            return jsxWithValidation(type, props, key, true);
+            return jsxWithValidation(type, props2, key, true);
           }
         }
         __name(jsxWithValidationStatic, "jsxWithValidationStatic");
-        function jsxWithValidationDynamic(type, props, key) {
+        function jsxWithValidationDynamic(type, props2, key) {
           {
-            return jsxWithValidation(type, props, key, false);
+            return jsxWithValidation(type, props2, key, false);
           }
         }
         __name(jsxWithValidationDynamic, "jsxWithValidationDynamic");
-        var jsx3 = jsxWithValidationDynamic;
+        var jsx5 = jsxWithValidationDynamic;
         var jsxs2 = jsxWithValidationStatic;
         exports.Fragment = REACT_FRAGMENT_TYPE;
-        exports.jsx = jsx3;
+        exports.jsx = jsx5;
         exports.jsxs = jsxs2;
       })();
     }
@@ -25499,24 +25505,31 @@ var require_react_jsx_runtime_development = __commonJS({
 
 // viteApp/node_modules/react/jsx-runtime.js
 var require_jsx_runtime = __commonJS({
-  "viteApp/node_modules/react/jsx-runtime.js"(exports, module2) {
+  "viteApp/node_modules/react/jsx-runtime.js"(exports, module) {
     "use strict";
     if (false) {
-      module2.exports = null;
+      module.exports = null;
     } else {
-      module2.exports = require_react_jsx_runtime_development();
+      module.exports = require_react_jsx_runtime_development();
     }
   }
 });
 
-// viteApp/src/entry-client.tsx
-var import_react2 = __toESM(require_react(), 1);
-var import_client = __toESM(require_client(), 1);
+// viteApp/src/App.css
+var init_App = __esm({
+  "viteApp/src/App.css"() {
+  }
+});
 
 // viteApp/src/App.tsx
-var import_react = __toESM(require_react(), 1);
-var import_jsx_runtime = __toESM(require_jsx_runtime(), 1);
-function App() {
+var App_exports = {};
+__export(App_exports, {
+  default: () => App_default
+});
+function App(props2) {
+  (0, import_react.useEffect)(() => {
+    console.log(props2);
+  }, []);
   const [count, setCount] = (0, import_react.useState)(0);
   return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
     /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
@@ -25533,19 +25546,75 @@ function App() {
         "Edit ",
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("code", { children: "src/App.tsx" }),
         " and save to test HMR"
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", { children: [
+        "person name is ",
+        props2.data.name
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", { children: [
+        "person age is ",
+        props2.data.age
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", { children: [
+        "is ok ",
+        String(props2.ok)
       ] })
     ] }),
     /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { className: "read-the-docs", children: "Click on the Golang and React logos to learn more" })
   ] });
 }
-__name(App, "App");
-var App_default = App;
+var import_react, import_jsx_runtime, App_default;
+var init_App2 = __esm({
+  "viteApp/src/App.tsx"() {
+    "use strict";
+    import_react = __toESM(require_react(), 1);
+    init_App();
+    import_jsx_runtime = __toESM(require_jsx_runtime(), 1);
+    __name(App, "App");
+    App_default = App;
+  }
+});
+
+// viteApp/src/Login.tsx
+var Login_exports = {};
+__export(Login_exports, {
+  default: () => Login_default
+});
+var import_jsx_runtime2, Login, Login_default;
+var init_Login = __esm({
+  "viteApp/src/Login.tsx"() {
+    "use strict";
+    import_jsx_runtime2 = __toESM(require_jsx_runtime(), 1);
+    Login = /* @__PURE__ */ __name(() => {
+      return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { children: "Login" });
+    }, "Login");
+    Login_default = Login;
+  }
+});
 
 // viteApp/src/entry-client.tsx
-var import_jsx_runtime2 = __toESM(require_jsx_runtime(), 1);
+var import_react2 = __toESM(require_react(), 1);
+var import_client = __toESM(require_client(), 1);
+
+// viteApp/Router.tsx
+var import_jsx_runtime3 = __toESM(require_jsx_runtime(), 1);
+var routes = {
+  "/": Promise.resolve().then(() => (init_App2(), App_exports)),
+  "/login": Promise.resolve().then(() => (init_Login(), Login_exports))
+};
+var Router = /* @__PURE__ */ __name(async (url, props2) => {
+  const Page2 = (await routes[url]).default;
+  return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { children: Page2 ? /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Page2, { ...props2 }) : /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("h1", { children: "Not Found" }) });
+}, "Router");
+var Router_default = Router;
+
+// viteApp/src/entry-client.tsx
+var import_jsx_runtime4 = __toESM(require_jsx_runtime(), 1);
+var props = window["Props"];
+var Page = await Router_default(window.location.pathname, props);
 import_client.default.hydrateRoot(
   document.getElementById("root"),
-  /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_react2.default.StrictMode, { children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(App_default, {}) })
+  /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(import_react2.default.StrictMode, { children: Page })
 );
 /*! Bundled license information:
 
