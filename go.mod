@@ -9,6 +9,7 @@ require (
 
 require (
 	github.com/dlclark/regexp2 v1.10.0 // indirect
+	github.com/dop251/goja_nodejs v0.0.0-20240221231712-27eeffc9c235 // indirect
 	github.com/go-sourcemap/sourcemap v2.1.3+incompatible // indirect
 	github.com/google/pprof v0.0.0-20240207164012-fb44976bdcd5 // indirect
 	golang.org/x/sys v0.6.0 // indirect

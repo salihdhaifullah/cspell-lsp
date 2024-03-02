@@ -7,7 +7,7 @@ interface Person {
   age: number
 }
 
-function App(props: Props<Person>) {
+function App(props: Props<Person[]>) {
   useEffect(() => {
     console.log(props)
   }, [])
@@ -24,17 +24,19 @@ function App(props: Props<Person>) {
         </a>
       </div>
       <h1>Golang + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-        <h1>person name is {props.data.name}</h1>
-        <h1>person age is {props.data.age}</h1>
-        <h1>is ok {String(props.ok)}</h1>
-      </div>
+      {props.data.map((item, key) => (
+        <div key={key} className="card">
+          <button onClick={() => setCount((count) => count + 1)}>
+            count is {count}
+          </button>
+          <p>
+            Edit <code>src/App.tsx</code> and save to test HMR
+          </p>
+          <h1>person name is {item.name}</h1>
+          <h1>person age is {item.age}</h1>
+          <h1>is ok {String(props.ok)}</h1>
+        </div>
+      ))}
       <p className="read-the-docs">
         Click on the Golang and React logos to learn more
       </p>

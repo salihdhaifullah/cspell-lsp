@@ -25537,7 +25537,7 @@ function App(props2) {
       /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", { href: "https://reactjs.org", target: "_blank", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", { src: "/public/react.svg", className: "logo react", alt: "React logo" }) })
     ] }),
     /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", { children: "Golang + React" }),
-    /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "card", children: [
+    props2.data.map((item, key) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "card", children: [
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", { onClick: () => setCount((count2) => count2 + 1), children: [
         "count is ",
         count
@@ -25549,17 +25549,17 @@ function App(props2) {
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", { children: [
         "person name is ",
-        props2.data.name
+        item.name
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", { children: [
         "person age is ",
-        props2.data.age
+        item.age
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", { children: [
         "is ok ",
         String(props2.ok)
       ] })
-    ] }),
+    ] }, key)),
     /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { className: "read-the-docs", children: "Click on the Golang and React logos to learn more" })
   ] });
 }

@@ -30,12 +30,11 @@ return `
 `
 }
 
-
-
 function RenderHtml(url: string, propsJson: string) {
   const props = JSON.parse(propsJson) as Props<unknown>
   const rendered = render(url, props)
   const html = GetTemplate(rendered.head, rendered.html, propsJson)
+  console.warn(`content length is ${html.length}`)
   return html
 }
 

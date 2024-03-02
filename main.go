@@ -9,6 +9,8 @@ import (
 	"time"
 
 	goja "github.com/dop251/goja"
+	"github.com/dop251/goja_nodejs/console"
+	"github.com/dop251/goja_nodejs/require"
 	"github.com/salihdhaifullah/go-react-ssr/builder"
 )
 
@@ -20,11 +22,14 @@ type Person struct {
 func Loader(url string) Props {
 	switch url {
 	case "/":
-		return Props{Ok: true,
-			Data: Person{
-				Name: "Salih Dhaifullah",
-				Age:  19,
-			}}
+		data := []Person{}
+		for i := 0; i < 100; i++ {
+			data = append(data, Person{
+				Name: "HELLO WORLD",
+				Age:  i,
+			})
+		}
+		return Props{Ok: true, Data: data}
 	default:
 		return Props{Ok: true}
 	}
@@ -96,6 +101,8 @@ func NewRenderer() Renderer {
 	}
 
 	rn := goja.New()
+	new(require.Registry).Enable(rn)
+	console.Enable(rn)
 	_, err = rn.RunScript("input", string(b))
 	if err != nil {
 		log.Fatal(err)
