@@ -1,0 +1,19 @@
+{
+    "name": "cspell-lsp-wrapper",
+    "version": "1.0.0",
+    "description": "lsp wrapper for cspell",
+    "main": "./dist/server.js",
+    "scripts": {
+        "start": "node ./dist/server.js --stdio"
+    },
+    "keywords": [
+        "cspell",
+        "spell checker",
+        "LSP"
+    ],
+    "author": "salihdhaifullah",
+    "repository": {
+        "url": "git+https://github.com/salihdhaifullah/cspell-lsp.git"
+    },
+    "license": "MIT"
+}

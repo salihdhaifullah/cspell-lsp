@@ -1,0 +1,16 @@
+# Exclude source files
+src/
+
+# Exclude build configuration files
+esbuild.config.js
+esbuild.test.js
+publish.sh
+package.publish.json
+
+# Exclude lock file
+pnpm-lock.yaml
+
+# Exclude test files and directories
+test.txt
+dist/test.js
+.cspell

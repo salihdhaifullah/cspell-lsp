@@ -2,7 +2,6 @@ import * as cspell from 'cspell-lib';
 import { join } from "path"
 import { appendFileSync, openSync, readFileSync } from 'fs';
 
-// TODO: rebind c to not copy to registry and auto save
 interface ICheckSpellingArgs {
     uri: string;
     text: string;
@@ -24,9 +23,8 @@ export default class CspellApi {
         }
     }
 
-    private getWhiteListPath() {
-        if (!process.env.HOME) throw new Error("HOME env not found");
-        this.path = join(process.env.HOME, ".config/nvim/.cspell");
+    private getWhiteListPath(home: string) {
+        this.path = join(home, ".cspell");
     }
 
 
@@ -66,8 +64,8 @@ export default class CspellApi {
         await this.loadSettings()
     }
 
-    public async setup() {
-        this.getWhiteListPath();
+    public async setup(home: string) {
+        this.getWhiteListPath(home);
         this.createFileIfNotExists();
         this.initWhiteList();
         await this.loadSettings();

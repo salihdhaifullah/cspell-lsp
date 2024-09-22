@@ -2,16 +2,17 @@ import { Diagnostic, DiagnosticSeverity } from 'vscode-languageserver/node';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { connection, documents, cspell } from './init';
 
+
 export async function refreshDiagnostics(uri: string) {
     const document = documents.get(uri);
     if (!document) {
         connection.console.error(`error document ${uri} not found`)
-        return;
+        process.exit(1);
     }
 
     const diagnostics = await validateTextDocument(document)
-    await connection.sendDiagnostics({ uri, diagnostics: [] });
-    await connection.sendDiagnostics({ uri, diagnostics: diagnostics });
+    await connection.sendDiagnostics({ uri, diagnostics: [] })
+    await connection.sendDiagnostics({ uri, diagnostics: diagnostics })
 }
 
 export async function addToUserSettings(word: string, uri: string) {
@@ -24,6 +25,8 @@ export async function addToUserSettings(word: string, uri: string) {
             connection.console.error('Stack trace: ' + error.stack);
         }
         else connection.console.error('Unknown error: ' + error);
+
+        process.exit(1);
     }
 };
 
@@ -57,6 +60,6 @@ export async function validateTextDocument(textDocument: TextDocument): Promise<
         }
         else connection.console.error('Unknown error: ' + error);
 
-        return []
+        process.exit(1);
     }
 }
