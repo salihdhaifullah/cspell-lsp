@@ -45,6 +45,7 @@ export default class CspellApi {
         settings.suggestionsTimeout = 1000;
         settings.noConfigSearch = true;
         settings.allowCompoundWords = true;
+        settings.maxDuplicateProblems = 10000;
         
         this.settings = settings;
     }

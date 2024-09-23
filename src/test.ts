@@ -3,19 +3,18 @@ import { assert } from "console";
 import CspellApi from "./cspell"
 import path from "path";
 
-
-
 async function init() {
     const cspell = await new CspellApi().setup(process.env.PWD!);
     testSuggestions(cspell)
     testDiagnostics(cspell)
+    testSameRepatedDiagnostics(cspell)
 }
 
-async function testSuggestions(cspell: CspellApi) { 
+async function testSuggestions(cspell: CspellApi) {
     const filepath = path.join(process.env.PWD!, "test.txt");
-    const text = readFileSync(filepath, 'utf8');  
-    const issues = await cspell.checkSpelling({ uri: filepath, text: text, languageId: "plaintext" }) 
-   
+    const text = readFileSync(filepath, 'utf8');
+    const issues = await cspell.checkSpelling({ uri: filepath, text: text, languageId: "plaintext" })
+
     assert(issues[0].suggestions !== undefined, `no suggestions found for ${issues[0].text}`)
     assert(issues[1].suggestions !== undefined, `no suggestions found for ${issues[1].text}`)
     assert(issues[2].suggestions !== undefined, `no suggestions found for ${issues[2].text}`)
@@ -27,8 +26,8 @@ async function testSuggestions(cspell: CspellApi) {
 
 async function testDiagnostics(cspell: CspellApi) {
     const filepath = path.join(process.env.PWD!, "test.txt");
-    const text = readFileSync(filepath, 'utf8');  
-    let issues = await cspell.checkSpelling({ uri: filepath, text: text, languageId: "plaintext" }) 
+    const text = readFileSync(filepath, 'utf8');
+    let issues = await cspell.checkSpelling({ uri: filepath, text: text, languageId: "plaintext" })
 
     assert(issues.length === 3, `Expected 3 spelling issues, but found ${issues.length}`);
 
@@ -40,7 +39,7 @@ async function testDiagnostics(cspell: CspellApi) {
 
     await cspell.addWordToWhiteList("hellx")
 
-    issues = await cspell.checkSpelling({ uri: filepath, text: text, languageId: "typescript" })
+    issues = await cspell.checkSpelling({ uri: filepath, text: text, languageId: "plaintext" })
 
     assert(issues.length === 2, `Expected 2 spelling issues, but found ${issues.length}`);
 
@@ -50,7 +49,7 @@ async function testDiagnostics(cspell: CspellApi) {
 
     await cspell.addWordToWhiteList("abcx")
 
-    issues = await cspell.checkSpelling({ uri: filepath, text: text, languageId: "typescript" })
+    issues = await cspell.checkSpelling({ uri: filepath, text: text, languageId: "plaintext" })
 
     assert(issues.length === 1, `Expected 1 spelling issue, but found ${issues.length}`);
 
@@ -58,7 +57,24 @@ async function testDiagnostics(cspell: CspellApi) {
 
     await cspell.addWordToWhiteList("dowq")
 
-    issues = await cspell.checkSpelling({ uri: filepath, text: text, languageId: "typescript" })
+    issues = await cspell.checkSpelling({ uri: filepath, text: text, languageId: "plaintext" })
+
+    assert(issues.length === 0, `Expected no spelling issues, but found ${issues.length}`);
+}
+
+async function testSameRepatedDiagnostics(cspell: CspellApi) {
+    const filepath = path.join(process.env.PWD!, "test2.txt");
+    const text = readFileSync(filepath, 'utf8');
+    let issues = await cspell.checkSpelling({ uri: filepath, text: text, languageId: "plaintext" })
+
+    assert(issues.length === 22, `Expected 22 spelling issues, but found ${issues.length}`);
+    for (let i = 0; i < 22; i++) {
+        assert(issues[i].text === "helscs", `Expected ${i} word to be helscs, but found ${issues[i].text}`);
+    }
+
+    await cspell.addWordToWhiteList("helscs")
+
+    issues = await cspell.checkSpelling({ uri: filepath, text: text, languageId: "plaintext" })
 
     assert(issues.length === 0, `Expected no spelling issues, but found ${issues.length}`);
 }
