@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { Diagnostic, DocumentDiagnosticReportKind, type DocumentDiagnosticReport, CodeActionParams, CodeAction, CodeActionKind, TextEdit } from 'vscode-languageserver/node';
 import { connection, documents } from './init';
 import { addToUserSettings, validateTextDocument } from './helper';

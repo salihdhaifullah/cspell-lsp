@@ -1,6 +1,6 @@
 {
     "name": "@salihdhaifullah/cspell-lsp",
-    "version": "1.0.0",
+    "version": "1.0.3",
     "description": "lsp wrapper for cspell",
     "main": "./dist/server.js",
     "scripts": {
