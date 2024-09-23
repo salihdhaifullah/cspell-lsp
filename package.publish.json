@@ -1,10 +1,10 @@
 {
     "name": "cspell-lsp-wrapper",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "lsp wrapper for cspell",
     "main": "./dist/server.js",
-    "scripts": {
-        "start": "node ./dist/server.js --stdio"
+    "bin": {
+        "cspell-lsp-wrapper": "./dist/server.js --stdio"
     },
     "keywords": [
         "cspell",
