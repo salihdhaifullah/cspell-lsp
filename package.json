@@ -19,8 +19,7 @@
         "node": "*"
     },
     "repository": {
-        "type": "git",
-        "url": "https://github.com/salihdhaifullah/cspell-lsp"
+        "url": "git+https://github.com/salihdhaifullah/cspell-lsp.git"
     },
     "license": "MIT",
     "dependencies": {
